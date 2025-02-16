@@ -1,0 +1,44 @@
+---
+title: "Water Insecurity"
+description: |
+  Analysis of Water Insecurity data from TidyTuesday
+author: Jack Susank
+date: February 15, 2025
+format: html
+echo: FALSE
+---
+
+```{r}
+library(ggplot2)
+
+tuesdata <- tidytuesdayR::tt_load(2025, week = 4)
+
+water_insecurity_2022 <- tuesdata$water_insecurity_2022
+
+water_insecurity_2022 <- na.omit(water_insecurity_2022)
+
+```
+
+
+```{r}
+ggplot(water_insecurity_2022, aes(x = total_pop, y = percent_lacking_plumbing)) +
+  geom_point(color = "blue", size = 2, alpha = 0.5) +
+  scale_x_log10() +
+  labs(
+    title = "Water Insecurity in US Counties",
+    x = "Total Population (log scale)",
+    y = "Percent Lacking Plumbing",
+    caption = "Source: https://github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-01-28/readme.md
+    
+https://CRAN.R-project.org/package=tidycensus
+    "
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(hjust = 0.5, face = "bold"),
+    axis.title = element_text(face = "bold"),
+    axis.text = element_text(color = "gray20"),
+    panel.grid.major = element_line(color = "gray85"),
+    panel.grid.minor = element_blank()
+  )
+```

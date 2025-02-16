@@ -9,8 +9,22 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "jacksusank.github.io",
+    "title": "Jack Susank",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
+    "text": "Hello and welcome to my Website! My name is Jack Susank, I am a 3rd year computer science major at Pomona College, and I love working with AI!"
+  },
+  {
+    "objectID": "TidyTuesday1.html",
+    "href": "TidyTuesday1.html",
+    "title": "Water Insecurity",
+    "section": "",
+    "text": "---- Compiling #TidyTuesday Information for 2025-01-28 ----\n--- There are 2 files available ---\n\n\n── Downloading files ───────────────────────────────────────────────────────────\n\n  1 of 2: \"water_insecurity_2022.csv\"\n  2 of 2: \"water_insecurity_2023.csv\""
+  },
+  {
+    "objectID": "TidyTuesday2.html",
+    "href": "TidyTuesday2.html",
+    "title": "Cheese!",
+    "section": "",
+    "text": "---- Compiling #TidyTuesday Information for 2024-06-04 ----\n--- There is 1 file available ---\n\n\n── Downloading files ───────────────────────────────────────────────────────────\n\n  1 of 1: \"cheeses.csv\""
   }
 ]
