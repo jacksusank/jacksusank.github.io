@@ -38,7 +38,7 @@ ggplot(cleaned_cheeses, aes(x = fat_content, y = calcium_content)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE, color = "blue") +
   labs(
-    title = "Fat versus Calcium content of Cheese",
+    title = "Fat versus Calcium content of Various Cheeses",
     x = "Fat Content (%)",
     y = "Calcium Content (mg/100g)"
   ) +
