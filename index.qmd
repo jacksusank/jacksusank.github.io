@@ -8,6 +8,11 @@ about:
       href: https://www.linkedin.com/in/jack-susank-16b05a232/
     - text: GitHub
       href: https://github.com/jacksusank
+    - text: Source Code
+      href: https://github.com/jacksusank/jacksusank.github.io
 ---
 
-Hello and welcome to my Website! My name is Jack Susank, I am a 3rd year computer science major at Pomona College, and I love working with AI!
+Hi, I'm Jack Susank and welcome to my website! I'm a 3rd year computer science student at Pomona College with a passion for problem-solving, AI, and technology. Recently, I've been looking into Natural Language Processing (NLP), 3D Rendering/Printing, Data Visualization, and App Building. When I’m not working, studying, or learning about these things, I enjoy hiking, cooking, playing football, and spending time with my friends and family.
+
+Thanks for visiting my site! Feel free to check out my projects and get in touch!
+

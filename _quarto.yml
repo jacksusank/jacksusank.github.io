@@ -6,12 +6,16 @@ website:
   title: "Jack Susank"
   navbar:
     left:
-      - href: index.qmd
+      - href: index.html
         text: Home
-      - href: TidyTuesday1.qmd
-        text: Water Insecurity
-      - href: TidyTuesday2.qmd
-        text: Cheese!
+      - text: "Resume"
+        href: 2_5_25 Resume (1).pdf
+      - text: "Data Viz"
+        menu: 
+          - href: TidyTuesday1.html
+            text: Water Insecurity
+          - href: TidyTuesday2.html
+            text: Cheese!
 
 format:
   html:

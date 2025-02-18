@@ -6,7 +6,14 @@ author: Jack Susank
 date: February 15, 2025
 format: html
 echo: FALSE
+execute:
+  warning: false
+  message: false
 ---
+
+This is an analysis of Water Insecurity data sourced from TidyTuesday's January 28th, 2025 data release. The plot depicts the water insecurity of US Counties in 2022. To download the data, visit [this github repo](https://github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-01-28/readme.md).
+This dataset was compiled by [Niha Pereira](https://github.com/nnpereira) using the [tidycensus](https://CRAN.R-project.org/package=tidycensus) package for R and [this blog walkthrough](https://waterdata.usgs.gov/blog/acs-maps/). For more information on how to access census data from sources such as the U.S. Census Bureau, the Decennial Census, the American Community Survey (ACS), and the Household Pulse Survey, see the walkthrough. 
+
 
 ```{r}
 library(ggplot2)
@@ -19,19 +26,13 @@ water_insecurity_2022 <- na.omit(water_insecurity_2022)
 
 ```
 
-
 ```{r}
 ggplot(water_insecurity_2022, aes(x = total_pop, y = percent_lacking_plumbing)) +
   geom_point(color = "blue", size = 2, alpha = 0.5) +
-  scale_x_log10() +
   labs(
     title = "Water Insecurity in US Counties",
-    x = "Total Population (log scale)",
-    y = "Percent Lacking Plumbing",
-    caption = "Source: https://github.com/rfordatascience/tidytuesday/blob/main/data/2025/2025-01-28/readme.md
-    
-https://CRAN.R-project.org/package=tidycensus
-    "
+    x = "Total Population",
+    y = "Percent Lacking Plumbing"
   ) +
   theme_minimal(base_size = 14) +
   theme(
@@ -40,5 +41,7 @@ https://CRAN.R-project.org/package=tidycensus
     axis.text = element_text(color = "gray20"),
     panel.grid.major = element_line(color = "gray85"),
     panel.grid.minor = element_blank()
-  )
+  ) +
+  scale_x_continuous(labels = scales::comma)
+
 ```
