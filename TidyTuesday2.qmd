@@ -12,7 +12,7 @@ execute:
 ---
 
 This is an analysis of Cheese data sourced from TidyTuesday's June 4th, 2024 data release. The plot compares the fat and calcium contents different types of cheese. To download the data, visit [this github repo](https://github.com/rfordatascience/tidytuesday/blob/main/data/2024/2024-06-04/readme.md).
-This dataset was compiled using data from [Cheese.com](https://www.cheese.com/) and its creation was inspired by the [polite package](https://dmi3kno.github.io/polite/).
+This dataset was compiled using data from [Cheese.com](https://www.cheese.com/) and its creation was inspired by the [polite package](https://dmi3kno.github.io/polite/). 
 
 
 ```{r}
