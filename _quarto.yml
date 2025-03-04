@@ -12,11 +12,11 @@ website:
         href: 2_5_25 Resume (1).pdf
       - text: "Data Viz"
         menu: 
-          - href: TidyTuesday1.html
+          - href: docs/TidyTuesday1.html
             text: Water Insecurity
-          - href: TidyTuesday2.html
+          - href: docs/TidyTuesday2.html
             text: Cheese!
-          - href: Project2.html
+          - href: docs/Project2.html
             text: The Office!
 
 format:
