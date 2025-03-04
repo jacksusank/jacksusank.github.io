@@ -16,6 +16,8 @@ website:
             text: Water Insecurity
           - href: TidyTuesday2.html
             text: Cheese!
+          - href: Project2.html
+            text: The Office!
 
 format:
   html:
