@@ -32,9 +32,8 @@ downsizing <- df |>
   distinct()
 downsizing
 ```
-When I think of downsizing in The Office, I tend to think of the very first episode (10) so I am surprised to see that, in reality, the word appears in more lines (14) in the fourth episode. 
 
-
+When I think of downsizing in The Office, I tend to think of the very first episode (10) so I am surprised to see that, in reality, the word appears in more lines (14) in the fourth episode.
 
 **Question 2:**
 
@@ -57,9 +56,8 @@ AvgWordsSpoken <- df |>
 AvgWordsSpoken
 
 ```
+
 These results display that there is a fairly wide range of average sentence lengths. There also seems to be a correlation between speaking often and speaking a lot. There are, of course some exceptions to this rule, but it is particularly true for Michael Scott.
-
-
 
 **Question 3:**
 
@@ -78,9 +76,8 @@ UmTracker <- df |>
 UmTracker
 
 ```
+
 Pam has the longest um! In Season 2, Episode 9, she has a line in which all she says is "Ummmm...". It makes sense for Pam's character to have the longest 'um' considering how reserved she is. This reservedness reveals itself in the previous plot in that she has a relatively small average sentence length relative to the number of lines she speaks. In fact, of all of the characters that have more than 2,000 lines, she is the only one with an average length less than 10. Being unsure of herself, it makes sense that Pam would be the only character to have this long of a hesitation written into the script.
-
-
 
 **Question 4:**
 
@@ -103,9 +100,7 @@ QuestionWords <- df |>
 
 ```
 
-
 **Plot 1:**
-
 
 ```{r}
 TenWowWords <- WowWords |>
@@ -118,12 +113,10 @@ ggplot(TenWowWords, aes(x = instance, y = count)) +
   labs(title = "10 Most Frequent Words Before '!'", x = "Words", y = "Count") +
   theme_minimal()
 ```
+
 This plot displays the 10 words that most often appear immediately before an exclamation mark. My favorite aspect of this plot is that for most of the words, you can imagine who said them and how. For example, just as the viewer may have guessed, Dwight said 'Michael!' 29 times over the course of the show, more than twice as much as any other character. Similarly, Michael ended his sentences with 'no!' and 'god!' much more often than any other character. It is also important to note that these words differ significantly from the list of 10 most used words in general.
 
-
-
 **Plot 2:**
-
 
 ```{r}
 TenQuestionWords <- QuestionWords |>
@@ -136,8 +129,8 @@ ggplot(TenQuestionWords, aes(x = instance, y = count)) +
   labs(title = "10 Most Frequent Words Before '?'", x = "Words", y = "Count") +
   theme_minimal()
 ```
-This plot displays the 10 words that most often appear immediately before a question mark. Unlike the previous plot, it is difficult to imagine who typically said each word and how. However, it is still quite interesting, though not necessarily surprisingly, that there is one word, "what", that precedes a question mark significantly more often than any other. It is also important to note that these words differ significantly from the list of 10 most used words in general.
 
+This plot displays the 10 words that most often appear immediately before a question mark. Unlike the previous plot, it is difficult to imagine who typically said each word and how. However, it is still quite interesting, though not necessarily surprisingly, that there is one word, "what", that precedes a question mark significantly more often than any other. It is also important to note that these words differ significantly from the list of 10 most used words in general.
 
 **Plot 3:**
 
@@ -184,13 +177,9 @@ ggplot(commonWords, aes(x = prop_wow, y = prop_question, label = instance)) +
     plot.subtitle = element_text(size = 14, face = "italic")
   )
 ```
-This graph plots the relative frequencies of the 10 most common words used before exclamation marks and question marks. Some words, such as 'you' and 'it' precede each sign with similar frequencies. Most others, including 'what', 'no', 'oh', 'hey', and 'yes' differ significantly in their proportions. Among these, 'what' is the biggest outlier because it precedes nearly 1% of all question marks in the show! No other word appears before either of the signs with even half that frequency. 
 
-
-
+This graph plots the relative frequencies of the 10 most common words used before exclamation marks and question marks. Some words, such as 'you' and 'it' precede each sign with similar frequencies. Most others, including 'what', 'no', 'oh', 'hey', and 'yes' differ significantly in their proportions. Among these, 'what' is the biggest outlier because it precedes nearly 1% of all question marks in the show! No other word appears before either of the signs with even half that frequency.
 
 **Data Source**
 
-The dataset used in this analysis is "The Office Lines" dataset on [Kaggle](https://www.kaggle.com/datasets/fabriziocominetti/the-office-lines/data). This dataset was currated by scraping text from [The Office Quotes](https://www.officequotes.net/). 
-It contains transcripts from all episodes of The Office (U.S.), including character dialogue, season, and episode numbers for every line.
-
+The dataset used in this analysis is "The Office Lines" dataset on [Kaggle](https://www.kaggle.com/datasets/fabriziocominetti/the-office-lines/data). This dataset was currated by scraping text from [The Office Quotes](https://www.officequotes.net/). It contains transcripts from all episodes of The Office (U.S.), including character dialogue, season, and episode numbers for every line.

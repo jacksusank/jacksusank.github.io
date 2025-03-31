@@ -1,0 +1,78 @@
+---
+title: "Apple Interview Question!"
+description: |
+  Mini-Project 3
+author: Jack Susank
+date: April 2, 2025
+format: html
+execute:
+  warning: false
+  message: false
+---
+
+**Inspiration**
+
+I once heard of a Apple interview question in which the candidate is given 100 coins (90 with heads facing up and 10 with tails facing up) and then asked to separate them into two piles of any size such that each pile has the same number of coins with the tails side facing up. Sounds simple enough, but there's a catch... the candidate was to be blindfolded the entire time. This means they never saw the coins and have no idea which 10 coins are on tails or which 90 coins are on heads.
+
+There is an algorithmic approach to this problem such that you can guarantee your answer will be true, but I was not able to come up with it. The best I could think to do is to randomly perform 100 coin flips and then separate my flipped coins into two piles of 50. I would then just have to hope that each pile has the same number of tails facing up.
+
+
+**Motivating Question**
+
+Although my answer is not exactly what the interviewers would have in mind, I have always been curious as to how often my answer would end up being correct merely by chance. Until now, I haven't been able to figure out a way to answer this question without doing long mathematical calculations, and the free version of ChatGPT seems to give me a different answer each time I ask it, so I'm very excited to finally approximate the answer using this simulation.
+
+
+**Results**
+
+```{r}
+library(purrr)
+coin_flip <- c(0, 1)
+
+flip_coins <- function(num_coins) {
+  left_pile <- sample(coin_flip, size = num_coins, replace = TRUE)
+  right_pile <- sample(coin_flip, size = num_coins, replace = TRUE)
+  
+  tails_match <- ifelse(sum(left_pile) == sum(right_pile), 1, 0)
+  return (tails_match)
+}
+
+coin_simulation <- function(num_coins, num_iterations) {
+  results <- map_dbl(c(1:num_iterations), ~flip_coins(num_coins = num_coins)) 
+  probability_same_tails <- mean(results)
+  return(probability_same_tails)
+}
+
+coin_simulation(50, 100000)
+```
+
+According to the simulation, I could expect to get the right answer about 8% of the time!
+
+I'm honestly a little disappointed by this result (I was hoping the real proportion would be higher), but I'm glad I finally have my answer. Out of curiosity, I have also simulated how the results would change with varying pile sizes. A plot with the results of that simulation can be seen below.
+
+
+
+```{r}
+library(ggplot2)
+
+num_coins <- (1:100)
+
+results_100 <- map_dbl(num_coins, coin_simulation, num_iterations = 5000)
+results_df <- data.frame(num_coins = num_coins, probability = results_100)
+
+
+ggplot(results_df, aes(x = num_coins, y = probability)) +
+  geom_line(color = "blue") +
+  geom_point(color = "red") +
+  labs(
+    title = "Probability of Equal Tails in Two Piles",
+    x = "Pile Size",
+    y = "Probability"
+  ) +
+  theme_minimal()
+```
+
+**Insights**
+
+This plot depicts the correlation between the number of coins in each pile, and the probability that the flips will result in the same number of tails. As you can see, if you wanted to maximize your odds of success, the smartest thing to do would be to minimize the pile size. In the interview question I heard about, the pile size was 50, and we can see in the graph that this corresponds to a probability score of about 0.8 (the same as before). 
+
+I think these results have applications outside of a random Apple interview question like this one because they speak to the best way to maximize repeated success in a probabilistic setting. These results speak to the fact that reducing the number of potential outcomes reduces the probability of getting different outcomes. In this case, you can't reduce the number of outcomes by changing the number of sides on a coin, but you can reduce the number of outcomes by reducing the number of times you perform the experiment. This is also true in general. Imagine if you were to perform the same simulation except with 100 six-sided-dice instead of 100 two-sided coins. The results would follow the same pattern.

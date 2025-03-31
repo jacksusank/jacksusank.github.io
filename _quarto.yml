@@ -18,6 +18,8 @@ website:
             text: Cheese!
           - href: Project2.html
             text: The Office!
+          - href: Project3.html
+            text: Data Project 3
 
 format:
   html:
