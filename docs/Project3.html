@@ -219,23 +219,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>coin_flip <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>flip_coins <span class="ot">&lt;-</span> <span class="cf">function</span>(num_coins) {</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  left_pile <span class="ot">&lt;-</span> <span class="fu">sample</span>(coin_flip, <span class="at">size =</span> num_coins, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  right_pile <span class="ot">&lt;-</span> <span class="fu">sample</span>(coin_flip, <span class="at">size =</span> num_coins, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>flip_coins <span class="ot">&lt;-</span> <span class="cf">function</span>(pile_size) {</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  left_pile <span class="ot">&lt;-</span> <span class="fu">sample</span>(coin_flip, <span class="at">size =</span> pile_size, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  right_pile <span class="ot">&lt;-</span> <span class="fu">sample</span>(coin_flip, <span class="at">size =</span> pile_size, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  tails_match <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">sum</span>(left_pile) <span class="sc">==</span> <span class="fu">sum</span>(right_pile), <span class="dv">1</span>, <span class="dv">0</span>)</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span> (tails_match)</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>coin_simulation <span class="ot">&lt;-</span> <span class="cf">function</span>(num_coins, num_iterations) {</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  results <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span>num_iterations), <span class="sc">~</span><span class="fu">flip_coins</span>(<span class="at">num_coins =</span> num_coins)) </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>coin_simulation <span class="ot">&lt;-</span> <span class="cf">function</span>(pile_size, num_iterations) {</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  results <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span>num_iterations), <span class="sc">~</span><span class="fu">flip_coins</span>(<span class="at">pile_size =</span> pile_size)) </span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  probability_same_tails <span class="ot">&lt;-</span> <span class="fu">mean</span>(results)</span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(probability_same_tails)</span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">coin_simulation</span>(<span class="dv">50</span>, <span class="dv">100000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.07941</code></pre>
+<pre><code>[1] 0.07887</code></pre>
 </div>
 </div>
 <p>According to the simulation, I could expect to get the right answer about 8% of the time!</p>
@@ -243,13 +243,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>num_coins <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>pile_size <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>)</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>results_100 <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(num_coins, coin_simulation, <span class="at">num_iterations =</span> <span class="dv">5000</span>)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>results_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">num_coins =</span> num_coins, <span class="at">probability =</span> results_100)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>results_100 <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(pile_size, coin_simulation, <span class="at">num_iterations =</span> <span class="dv">5000</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>results_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">pile_size =</span> pile_size, <span class="at">probability =</span> results_100)</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(results_df, <span class="fu">aes</span>(<span class="at">x =</span> num_coins, <span class="at">y =</span> probability)) <span class="sc">+</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(results_df, <span class="fu">aes</span>(<span class="at">x =</span> pile_size, <span class="at">y =</span> probability)) <span class="sc">+</span></span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span></span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>

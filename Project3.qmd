@@ -28,16 +28,16 @@ Although my answer is not exactly what the interviewers would have in mind, I ha
 library(purrr)
 coin_flip <- c(0, 1)
 
-flip_coins <- function(num_coins) {
-  left_pile <- sample(coin_flip, size = num_coins, replace = TRUE)
-  right_pile <- sample(coin_flip, size = num_coins, replace = TRUE)
+flip_coins <- function(pile_size) {
+  left_pile <- sample(coin_flip, size = pile_size, replace = TRUE)
+  right_pile <- sample(coin_flip, size = pile_size, replace = TRUE)
   
   tails_match <- ifelse(sum(left_pile) == sum(right_pile), 1, 0)
   return (tails_match)
 }
 
-coin_simulation <- function(num_coins, num_iterations) {
-  results <- map_dbl(c(1:num_iterations), ~flip_coins(num_coins = num_coins)) 
+coin_simulation <- function(pile_size, num_iterations) {
+  results <- map_dbl(c(1:num_iterations), ~flip_coins(pile_size = pile_size)) 
   probability_same_tails <- mean(results)
   return(probability_same_tails)
 }
@@ -54,13 +54,13 @@ I'm honestly a little disappointed by this result (I was hoping the real proport
 ```{r}
 library(ggplot2)
 
-num_coins <- (1:100)
+pile_size <- (1:100)
 
-results_100 <- map_dbl(num_coins, coin_simulation, num_iterations = 5000)
-results_df <- data.frame(num_coins = num_coins, probability = results_100)
+results_100 <- map_dbl(pile_size, coin_simulation, num_iterations = 5000)
+results_df <- data.frame(pile_size = pile_size, probability = results_100)
 
 
-ggplot(results_df, aes(x = num_coins, y = probability)) +
+ggplot(results_df, aes(x = pile_size, y = probability)) +
   geom_line(color = "blue") +
   geom_point(color = "red") +
   labs(
