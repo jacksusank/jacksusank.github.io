@@ -26,6 +26,7 @@ Although my answer is not exactly what the interviewers would have in mind, I ha
 
 ```{r}
 library(purrr)
+
 coin_flip <- c(0, 1)
 
 flip_coins <- function(pile_size) {
