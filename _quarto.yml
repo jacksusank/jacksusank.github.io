@@ -17,9 +17,11 @@ website:
           - href: TidyTuesday2.html
             text: Cheese!
           - href: Project2.html
-            text: The Office!
+            text: The Office
           - href: Project3.html
-            text: Data Project 3
+            text: Apple Interview Question
+          - href: Project4.html
+            text: Mosaicked Deidentification
 
 format:
   html:
