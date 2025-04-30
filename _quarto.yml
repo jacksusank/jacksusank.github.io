@@ -22,6 +22,8 @@ website:
             text: Apple Interview Question
           - href: Project4.html
             text: Mosaicked Deidentification
+          - href: Project5.html
+            text: Police Stops
 
 format:
   html:
