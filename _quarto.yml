@@ -9,7 +9,7 @@ website:
       - href: index.html
         text: Home
       - text: "Resume"
-        href: 2_5_25 Resume (1).pdf
+        href: "2_5_25 Resume (1).pdf"
       - text: "Data Viz"
         menu: 
           - href: TidyTuesday1.html
