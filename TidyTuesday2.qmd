@@ -14,11 +14,13 @@ execute:
 This is an analysis of Cheese data sourced from TidyTuesday's June 4th, 2024 data release. The plot compares the fat and calcium contents different types of cheese. To download the data, visit [this github repo](https://github.com/rfordatascience/tidytuesday/blob/main/data/2024/2024-06-04/readme.md).
 This dataset was compiled using data from [Cheese.com](https://www.cheese.com/) and its creation was inspired by the [polite package](https://dmi3kno.github.io/polite/). 
 
+```{r setup-pat, include=FALSE}
+readRenviron("~/.Renviron")
+```
+
 
 ```{r}
-tuesdata <- tidytuesdayR::tt_load(2024, week = 23)
-
-cheeses <- tuesdata$cheeses
+cheeses <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2024/2024-06-04/cheeses.csv')
 ```
 
 ```{r}
@@ -28,14 +30,21 @@ library(dplyr)
 
 
 cleaned_cheeses <- cheeses |>
-  select(fat_content, calcium_content) |>
+  select(fat_content, calcium_content, cheese) |>
   mutate(calcium_content = as.integer(str_replace(calcium_content, " mg/100g", ""))) |>
   mutate(fat_content = as.integer(str_replace(fat_content, "%", ""))) |>
-  filter(fat_content & calcium_content)
+  filter(!is.na(fat_content) & !is.na(calcium_content) & !is.na(cheese))
+```
 
 
-ggplot(cleaned_cheeses, aes(x = fat_content, y = calcium_content)) +
+```{r, alt-text = Scatterplot showing fat content versus calcium content for various cheeses, with each cheese type represented by a different color and a blue linear trend line indicating an overall weak negative relationship. Cheeses listed include Limburger, Petida, Anthotyro, and Provoleta.}
+
+# Scatterplot of fat content vs. calcium content for various cheeses
+ggplot(cleaned_cheeses, aes(x = fat_content, y = calcium_content, color = cheese)) +
+  # Plot individual cheese data points, colored by cheese type
   geom_point() +
+  
+  # Add a linear trend line (without a confidence interval)
   geom_smooth(method = "lm", se = FALSE, color = "blue") +
   labs(
     title = "Fat versus Calcium content of Various Cheeses",
@@ -51,3 +60,6 @@ ggplot(cleaned_cheeses, aes(x = fat_content, y = calcium_content)) +
     panel.grid.minor = element_blank()
   )
 ```
+
+
+This plot visualizes the relationship between fat and calcium content across various types of cheese. Each point represents a specific cheese, and a linear trend line suggests a weak negative correlation.

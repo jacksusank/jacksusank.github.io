@@ -30,9 +30,11 @@ water_insecurity_2022 <- na.omit(water_insecurity_2022)
 
 ```
 
-```{r}
+```{r, alt-text: This is a scatterplot of county population vs. percent lacking plumbing. The vast majority of points have a low population (less than 2.5 million people) and a low percent lacking plumbing (less than 1%). There are also some outliers with high population (max of 10,000,000 people), and some with high percent lacking plumbing (max of 3.7%), but there are no counties with a high population and a high percent lacking plumbing.}
 ggplot(water_insecurity_2022, aes(x = total_pop, y = percent_lacking_plumbing)) +
+  # Add blue semi-transparent points for each county
   geom_point(color = "blue", size = 2, alpha = 0.5) +
+  
   labs(
     title = "Water Insecurity in US Counties",
     x = "Total Population",
@@ -46,6 +48,10 @@ ggplot(water_insecurity_2022, aes(x = total_pop, y = percent_lacking_plumbing)) 
     panel.grid.major = element_line(color = "gray85"),
     panel.grid.minor = element_blank()
   ) +
+  
+  # Format x-axis labels with commas
   scale_x_continuous(labels = scales::comma)
 
 ```
+
+This plot shows that the vast majority of counties have a low population (less than 2.5 million people) and a low percent lacking plumbing (less than 1%). There are also some outliers with high population (max of 10,000,000 people), and some with high percent lacking plumbing (max of 3.7%), but there are no counties with a high population and a high percent lacking plumbing. In other words, there a no major cities in the dataset with a large percentage of their inhabitants lacking plumbing, but there are several (5) cities who have more than 1% of their inhabitants lacking plumbing.

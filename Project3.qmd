@@ -1,7 +1,7 @@
 ---
 title: "Apple Interview Question!"
 description: |
-  Mini-Project 3
+  Exploring a blindfolded coin sorting riddle through simulation and probability.
 author: Jack Susank
 date: April 2, 2025
 format: html
@@ -24,11 +24,13 @@ Although my answer is not exactly what the interviewers would have in mind, I ha
 
 **Results**
 
-```{r}
+```{r simulate-piles, echo=TRUE, warning=FALSE, message=FALSE}
+# Simulate flipping two piles of coins and checking if the number of tails match
 library(purrr)
 
 coin_flip <- c(0, 1)
 
+# Function to simulate flipping two piles and checking if they match in tails
 flip_coins <- function(pile_size) {
   left_pile <- sample(coin_flip, size = pile_size, replace = TRUE)
   right_pile <- sample(coin_flip, size = pile_size, replace = TRUE)
@@ -37,6 +39,7 @@ flip_coins <- function(pile_size) {
   return (tails_match)
 }
 
+# Run the simulation many times and return the estimated probability
 coin_simulation <- function(pile_size, num_iterations) {
   results <- map_dbl(c(1:num_iterations), ~flip_coins(pile_size = pile_size)) 
   probability_same_tails <- mean(results)
@@ -48,11 +51,11 @@ coin_simulation(50, 100000)
 
 According to the simulation, I could expect to get the right answer about 8% of the time!
 
-I'm honestly a little disappointed by this result (I was hoping the real proportion would be higher), but I'm glad I finally have my answer. Out of curiosity, I have also simulated how the results would change with varying pile sizes. A plot with the results of that simulation can be seen below.
+While the results were lower than I had expected, the simulation provides a clear and consistent estimate. Out of curiosity, I have also simulated how the results would change with varying pile sizes. A plot with the results of that simulation can be seen below.
 
 
 
-```{r}
+```{r pile-size-plot, fig-cap="Probability of matching tails as a function of pile size", fig-alt="A line plot showing that smaller pile sizes have a higher probability of matching tail counts between two piles.", echo=FALSE, message=FALSE, warning=FALSE}
 library(ggplot2)
 
 pile_size <- (1:100)
@@ -74,6 +77,6 @@ ggplot(results_df, aes(x = pile_size, y = probability)) +
 
 **Insights**
 
-This plot depicts the correlation between the number of coins in each pile, and the probability that the flips will result in the same number of tails. As you can see, if you wanted to maximize your odds of success, the smartest thing to do would be to minimize the pile size. In the interview question I heard about, the pile size was 50, and we can see in the graph that this corresponds to a probability score of about 0.8 (the same as before). 
+This plot depicts the relationship between the number of coins in each pile, and the probability that the flips will result in the same number of tails. As you can see, if you wanted to maximize your odds of success, the smartest thing to do would be to minimize the pile size. It should be noted, however, that although the probability that you get the exact same number of heads in each pile decreases as the pile size increases, the probability that you get a similar number would increase. Essentially, what is happening here is the number of total possible outcomes is increasing with the number of coins in each pile so the outcomes are more granular, and therefore, more likely to be unequal. In the interview question I heard about, the pile size was 50, and we can see in the graph that this corresponds to a probability score of about 0.8 (the same as before). 
 
 I think these results have applications outside of a random Apple interview question like this one because they speak to the best way to maximize repeated success in a probabilistic setting. These results speak to the fact that reducing the number of potential outcomes reduces the probability of getting different outcomes. In this case, you can't reduce the number of outcomes by changing the number of sides on a coin, but you can reduce the number of outcomes by reducing the number of times you perform the experiment. This is also true in general. Imagine if you were to perform the same simulation except with 100 six-sided-dice instead of 100 two-sided coins. The results would follow the same pattern.

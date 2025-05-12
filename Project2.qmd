@@ -8,23 +8,35 @@ format: html
 execute:
   warning: false
   message: false
+  execute: false
 ---
 
+For this project, I decided to analyze the dialogue from one of my favorite TV shows (The Office) to uncover some linguistic patterns across its characters and episodes. I explored topics like the frequency of “downsizing,” character verbosity, hesitation patterns, and punctuation quirks.
+
 ```{r}
-df <- read.csv("the-office_lines.csv", fileEncoding = "UTF-8")
 library(stringr)
 library(dplyr)
 library(tidyr)
 library(ggplot2)
 ```
 
-**Question 1:**
 
-What episode of The Office talks about downsizing the most?
+## Here is a random sample of our data ##
+```{r}
+df <- read.csv("the-office_lines.csv", fileEncoding = "UTF-8")
+
+df |>
+  sample_n(5) |>
+  knitr::kable()
+```
+
+## How Often Does "Downsizing" Come Up?
 
 ```{r}
 downsizing <- df |>
+  # Group the data by season and episode so we can count per episode
   group_by(Season, Episode_Number) |>
+  # Keep only lines that contain the word "downsizing" (case-insensitive, as a whole word)
   filter(str_detect(Line, regex("\\bdownsizing\\b", ignore_case = TRUE))) |>
   mutate(count_of_downsizing_lines = n()) |>
   mutate(SeasonEp = paste0("S:", Season, " E:", Episode_Number)) |>
@@ -35,20 +47,26 @@ downsizing
 
 When I think of downsizing in The Office, I tend to think of the very first episode (10) so I am surprised to see that, in reality, the word appears in more lines (14) in the fourth episode.
 
-**Question 2:**
 
-Of the characters that appear in the first episode, what is the average number of words per line?
+
+## Who Talks the Most in Episode 1?
 
 ```{r}
+# Identify the unique characters who speak in Season 1, Episode 1
 Ep1Characters <- df |>
   filter(Season == 1, Episode_Number == 1) |>
   distinct(Character)
 
+# Analyze average words per line for those characters across the entire dataset
 AvgWordsSpoken <- df |>
-  filter(Character %in% Ep1Characters$Character) |>
+  # Keep only rows where the character appeared in Episode 1
+  semi_join(Ep1Characters, by = "Character") |>
+  group_by(Character) |>
   group_by(Character) |>
   mutate(Count = str_count(Line, "\\b\\w+\\b")) |>
+  # Count the total number of lines spoken by each character
   mutate(NumLines = n()) |>
+  # Compute the average number of words per line per character
   summarise(AvgCount = mean(Count), NumLines = NumLines) |>
   arrange(desc(AvgCount)) |>
   distinct()
@@ -57,18 +75,24 @@ AvgWordsSpoken
 
 ```
 
-These results display that there is a fairly wide range of average sentence lengths. There also seems to be a correlation between speaking often and speaking a lot. There are, of course some exceptions to this rule, but it is particularly true for Michael Scott.
+These results display that there is a fairly wide range of average sentence lengths. There also seems to be a correlation between speaking often and speaking a lot. In other words, characters that have a small number of lines also have a small number of words per line, and vice versa. There are, of course some exceptions to this rule, but it is particularly true for Michael Scott.
 
-**Question 3:**
 
-Who has the longest 'um's?
+
+## Which Character Has the Longest "Um"?
 
 ```{r}
 UmTracker <- df |>
   group_by(Character) |>
+  # Extract any instance of "um", "umm", "ummmm", etc. as a whole word, case-insensitive
   mutate(umInstances = str_extract(Line, regex("\\bum+\\b", ignore_case = TRUE))) |>
+  # Keep only lines where an "um" instance was actually found
   filter(!is.na(umInstances)) |>
+  # Measure the length (number of characters) of the longest "um" in each line
   mutate(umLength = nchar(umInstances)) |>
+  
+  # Summarize by finding the longest "um" per character,
+  # and extract the full line where that longest "um" occurred
   summarise(maxUmLength = max(umLength), maxUmLine = Line[which.max(umLength)], .groups = "drop") |>
   select(Character, maxUmLength, maxUmLine) |>
   arrange(desc(maxUmLength))
@@ -79,11 +103,12 @@ UmTracker
 
 Pam has the longest um! In Season 2, Episode 9, she has a line in which all she says is "Ummmm...". It makes sense for Pam's character to have the longest 'um' considering how reserved she is. This reservedness reveals itself in the previous plot in that she has a relatively small average sentence length relative to the number of lines she speaks. In fact, of all of the characters that have more than 2,000 lines, she is the only one with an average length less than 10. Being unsure of herself, it makes sense that Pam would be the only character to have this long of a hesitation written into the script.
 
-**Question 4:**
 
-What words come before exclamation marks and question marks?
+
+## What Words Precede Punctuation Marks?
 
 ```{r}
+# Identify words that appear immediately before exclamation marks
 WowWords <- df |>
   mutate(instance = str_to_lower(str_extract(Line, "\\b\\w+(?=!)"))) |>
   filter(!is.na(instance)) |>
@@ -91,34 +116,33 @@ WowWords <- df |>
   summarize(count = n(), .groups = "drop") |>
   arrange(desc(count))
 
+# Identify words that appear immediately before question marks
 QuestionWords <- df |>
   mutate(instance = str_to_lower(str_extract(Line, "\\b\\w+(?=\\?)"))) |>
   filter(!is.na(instance)) |>
   group_by(instance) |>
   summarize(count = n(), .groups = "drop") |>
   arrange(desc(count))
-
 ```
 
 **Plot 1:**
 
-```{r}
+```{r, fig-alt="Horizontal bar chart showing the top 10 most frequent words immediately before an exclamation mark. 'no' is the most frequent, followed by 'it', 'oh', and others.", echo=FALSE, warning=FALSE, message=FALSE}
 TenWowWords <- WowWords |>
   head(10)
-  
 
 ggplot(TenWowWords, aes(x = instance, y = count)) +
   geom_bar(stat = "identity", fill = "dodgerblue") +
   coord_flip() +
   labs(title = "10 Most Frequent Words Before '!'", x = "Words", y = "Count") +
-  theme_minimal()
+  theme_minimal() 
 ```
 
-This plot displays the 10 words that most often appear immediately before an exclamation mark. My favorite aspect of this plot is that for most of the words, you can imagine who said them and how. For example, just as the viewer may have guessed, Dwight said 'Michael!' 29 times over the course of the show, more than twice as much as any other character. Similarly, Michael ended his sentences with 'no!' and 'god!' much more often than any other character. It is also important to note that these words differ significantly from the list of 10 most used words in general.
+This plot displays the 10 words that most often appear immediately before an exclamation mark. My favorite aspect of this plot is that for most of the words, you can imagine who said them and how. For example, just as the viewer may have guessed, Dwight said 'Michael!' 29 times over the course of the show, more than twice as much as any other character. Similarly, Michael ended his sentences with 'no!' and 'god!' much more often than any other character. It is also important to point out that these words differ notably from the list of 10 most used words in general.
 
 **Plot 2:**
 
-```{r}
+```{r    fig-alt="Horizontal bar chart showing the most frequent words immediately before a question mark. 'what' is the most common, followed by 'right', 'you', and others.", echo=FALSE, warning=FALSE, message=FALSE}
 TenQuestionWords <- QuestionWords |>
   head(10)
   
@@ -134,28 +158,35 @@ This plot displays the 10 words that most often appear immediately before a ques
 
 **Plot 3:**
 
-```{r}
+```{r wow-vs-question-scatter, fig-alt="Scatter plot showing words like 'what', 'no', and 'hey' positioned by their relative frequencies before exclamation marks and question marks. Words vary in use, with some heavily favoring one punctuation mark.", echo=FALSE, warning=FALSE, message=FALSE}
+
+# Extract and count words that appear immediately before an exclamation mark
 WowWords <- df |>
   mutate(instance = str_to_lower(str_extract(Line, "\\b\\w+(?=!)"))) |>
   filter(!is.na(instance)) |>
   group_by(instance) |>
   summarize(count_wow = n(), .groups = "drop")
 
+# Extract and count words that appear immediately before a question mark
 QuestionWords <- df |>
   mutate(instance = str_to_lower(str_extract(Line, "\\b\\w+(?=\\?)"))) |>
   filter(!is.na(instance)) |>
   group_by(instance) |>
   summarize(count_question = n(), .groups = "drop")
 
+# Join both datasets by the word instance, and calculate proportions
 commonWords <- full_join(WowWords, QuestionWords, by = "instance") |>
   mutate(
+    # Replace missing values with 0s (some words only appear in one list)
     count_wow = ifelse(is.na(count_wow), 0, count_wow),         
     count_question = ifelse(is.na(count_question), 0, count_question), 
     total_wow = sum(count_wow),                                 
-    total_question = sum(count_question),                       
+    total_question = sum(count_question),    
+    # Compute proportions for each word
     prop_wow = count_wow / total_wow,                
     prop_question = count_question / total_question   
   ) |>
+  # Sort by combined frequency and keep only top 10 words
   arrange(desc(prop_wow + prop_question)) |>
   head(10) 
 
