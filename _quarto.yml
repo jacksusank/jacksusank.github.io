@@ -1,13 +1,6 @@
 project:
   type: website
   output-dir: docs
-  render:
-    - index.qmd
-    - about.qmd
-    - Project2.qmd
-    - Project3.qmd
-    - Project4.qmd
-
 
 website:
   title: "Jack Susank"

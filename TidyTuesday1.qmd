@@ -15,12 +15,16 @@ This is an analysis of Water Insecurity data sourced from TidyTuesday's January 
 This dataset was compiled by [Niha Pereira](https://github.com/nnpereira) using the [tidycensus](https://CRAN.R-project.org/package=tidycensus) package for R and [this blog walkthrough](https://waterdata.usgs.gov/blog/acs-maps/). For more information on how to access census data from sources such as the U.S. Census Bureau, the Decennial Census, the American Community Survey (ACS), and the Household Pulse Survey, see the walkthrough. 
 
 
+
+```{r setup-pat, include=FALSE}
+readRenviron("~/.Renviron")
+```
+
+
 ```{r}
 library(ggplot2)
 
-tuesdata <- tidytuesdayR::tt_load(2025, week = 4)
-
-water_insecurity_2022 <- tuesdata$water_insecurity_2022
+water_insecurity_2022 <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2025/2025-01-28/water_insecurity_2022.csv')
 
 water_insecurity_2022 <- na.omit(water_insecurity_2022)
 
