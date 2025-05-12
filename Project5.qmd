@@ -10,6 +10,11 @@ execute:
   message: false
 ---
 
+## Overview ##
+
+In this project, I analyze police stop data from the Stanford Open Policing Project to investigate gender-related patterns in traffic stops across three U.S. states: Arizona, California, and Colorado. Specifically, I explore two questions: (1) which sex is stopped more often by police, and (2) which sex is more likely to be let off with a warning. While pop culture often suggests that women are more likely to receive leniency, I use real-world data to evaluate whether this perception holds up. By querying the relevant datasets and visualizing trends across states, this project provides an accessible but rigorous look into how gender may affect police encounters on the road.
+
+## Data Introduction ##
 
 ```{r}
 con_traffic <- DBI::dbConnect(
@@ -33,124 +38,91 @@ Here is an example of what the data looks like for a given state.
 SELECT * FROM ca_statewide_2023_01_26 LIMIT 10;
 ```
 
-
-
+## Plan ##
 
 This week, I want to answer the question of which sex has the most police interactions and which gets off with a warning most often? I will be analyzing the data from police encounters in three western states, California, Colorado, and Arizona, and then I will present the results for each of them. I wonder if the results will differ based on the state, and I wonder if there will be a significant difference between the number of warnings given to males and females. 
 
 
-I will begin by extracting the relevant data from from each state's statewide data table by joining tables containing the total number of encounters for each sex with tables containing the total number of warnings for each sex.
 
-Arizona:
+## Results ##
+I begin by extracting the relevant data from each state's table using SQL queries that group by sex and calculate both the total number of stops and number of warnings in a single step. I then combine the results from all three states using UNION to create one cohesive dataset for comparison.
+
 ```{sql}
-#| label: "Arizona"
+#| label: "Combined warning and stop data by sex across AZ, CO, and CA"
 #| connection: con_traffic
-#| output.var: Arizona
-SELECT 
-  total.subject_sex,
-  total.total_stops,
-  warnings.warning_stops,
-  'Arizona' AS state
-FROM
-  (SELECT subject_sex, COUNT(*) AS total_stops
-   FROM az_statewide_2020_04_01
-   GROUP BY subject_sex) AS total
-LEFT JOIN
-  (SELECT subject_sex, COUNT(*) AS warning_stops
-   FROM az_statewide_2020_04_01
-   WHERE outcome = 'warning'
-   GROUP BY subject_sex) AS warnings
-ON total.subject_sex = warnings.subject_sex
-ORDER BY total.total_stops DESC;
-```
+#| output.var: combined
 
+-- Arizona
+SELECT 'Arizona' AS state,
+  CASE subject_sex
+    WHEN 'M' THEN 'Male'
+    WHEN 'F' THEN 'Female'
+    ELSE subject_sex
+  END AS subject_sex,
+  COUNT(*) AS total_stops,
+  SUM(outcome = 'warning') AS warning_stops,
+  ROUND(SUM(outcome = 'warning') * 1.0 / COUNT(*), 3) AS warning_rate
+FROM az_statewide_2020_04_01
+GROUP BY subject_sex
 
-Colorado:
-```{sql}
-#| label: "Colorado"
-#| connection: con_traffic
-#| output.var: Colorado
-SELECT 
-  total.subject_sex,
-  total.total_stops,
-  warnings.warning_stops,
-  'Colorado' AS state
-FROM
-  (SELECT subject_sex, COUNT(*) AS total_stops
-   FROM co_statewide_2020_04_01
-   GROUP BY subject_sex) AS total
-LEFT JOIN
-  (SELECT subject_sex, COUNT(*) AS warning_stops
-   FROM co_statewide_2020_04_01
-   WHERE outcome = 'warning'
-   GROUP BY subject_sex) AS warnings
-ON total.subject_sex = warnings.subject_sex
-ORDER BY total.total_stops DESC;
-```
+UNION ALL
 
+-- Colorado
+SELECT 'Colorado' AS state,
+  CASE subject_sex
+    WHEN 'M' THEN 'Male'
+    WHEN 'F' THEN 'Female'
+    ELSE subject_sex
+  END AS subject_sex,
+  COUNT(*) AS total_stops,
+  SUM(outcome = 'warning') AS warning_stops,
+  ROUND(SUM(outcome = 'warning') * 1.0 / COUNT(*), 3) AS warning_rate
+FROM co_statewide_2020_04_01
+GROUP BY subject_sex
 
-California:
-```{sql}
-#| label: "California"
-#| connection: con_traffic
-#| output.var: California
-SELECT 
-  total.subject_sex,
-  total.total_stops,
-  warnings.warning_stops,
-  'California' AS state
-FROM
-  (SELECT subject_sex, COUNT(*) AS total_stops
-   FROM ca_statewide_2023_01_26
-   GROUP BY subject_sex) AS total
-LEFT JOIN
-  (SELECT subject_sex, COUNT(*) AS warning_stops
-   FROM ca_statewide_2023_01_26
-   WHERE outcome = 'warning'
-   GROUP BY subject_sex) AS warnings
-ON total.subject_sex = warnings.subject_sex
-ORDER BY total.total_stops DESC;
+UNION ALL
+
+-- California
+SELECT 'California' AS state,
+  CASE subject_sex
+    WHEN 'M' THEN 'Male'
+    WHEN 'F' THEN 'Female'
+    ELSE subject_sex
+  END AS subject_sex,
+  COUNT(*) AS total_stops,
+  SUM(outcome = 'warning') AS warning_stops,
+  ROUND(SUM(outcome = 'warning') * 1.0 / COUNT(*), 3) AS warning_rate
+FROM ca_statewide_2023_01_26
+GROUP BY subject_sex;
 ```
 
 
 Now that I have stored the data from each State in my environment, I will combine them into one clean table called 'combined'.
 
 
-```{r}
+## Data Visualizations ##
+
+Lastly, I can observe the differences between the Warning Rates amongst the sexes for each state. 
+
+
+```{r warning-rate-plot, fig.alt="Bar chart comparing the proportion of police stops that result in a warning for males and females in Arizona, California, and Colorado. The plot shows that in Arizona and Colorado, females were given a warning slightly more often than males, but in California, the proportions are essentially the same."}
+library(ggplot2)
 library(dplyr)
 
-combined <- bind_rows(California, Colorado, Arizona)
-
-combined <- combined |>
-  mutate(
-    warning_rate = warning_stops / total_stops,
-    subject_sex = recode(subject_sex, 'M' = 'Male', 'F' = 'Female')
-  )
-
-combined
-```
-
-
-
-Finally, I can observe the differences between the Warning Rates amongst the sexes for each state. 
-
-
-```{r}
-library(ggplot2)
-
+# Create a bar chart showing the proportion of police stops that resulted in a warning
+# for each sex, broken down by state
 combined |>
-  filter(!is.na(subject_sex)) |>
+  filter(!is.na(subject_sex)) |> # Exclude records with missing sex
   ggplot(aes(x = state, y = warning_rate, fill = subject_sex)) +
-    geom_col(position = "dodge") +
-    scale_y_continuous(labels = scales::percent) +
-    labs(
-      title = "Warning Rate by Sex in in AZ, CA, and CO",
-      x = "State",
-      y = "Warning Rate",
-      fill = "Sex"
-    ) +
-    theme_minimal()
-
+  geom_col(position = "dodge") +  # Side-by-side bars for each sex
+  scale_y_continuous(labels = scales::percent) + # Format y-axis as percentages
+  labs(
+    title = "Warning Rate by Sex in AZ, CA, and CO",
+    x = "State",
+    y = "Warning Rate",
+    fill = "Sex"
+  ) +
+  theme_minimal()
 ```
 
 This plot displays the percentage of police encounters that result in a warning for each sex, broken up by State. 
@@ -160,35 +132,40 @@ In Arizona and Colorado, females were given a warning slightly more often than m
 
 
 
-```{r}
+```{r total-stops-plot, fig.alt="Bar chart showing that males have roughly two times more police encounters than females in AZ, CA, and CO.", message=FALSE, warning=FALSE}
 library(ggplot2)
 library(dplyr)
 
+# Create a bar chart showing the total number of stops for each sex in each state
 combined |>
-  filter(!is.na(subject_sex)) |>
-  group_by(state, subject_sex, .drop = TRUE) |>
-  summarise(total_stops = sum(total_stops), .groups = "drop") |>
-  ggplot(aes(x = state, y = total_stops, fill = subject_sex)) +
-    geom_col(position = "dodge") +
-    labs(
-      title = "Total Police Encounters by Sex in AZ, CA, and CO",
-      x = "State",
-      y = "Number of Encounters",
-      fill = "Sex"
-    ) +
-    theme_minimal()
+  filter(!is.na(subject_sex)) |>  # Remove missing sex data
+  group_by(state, subject_sex, .drop = TRUE) |>  # Group by state and sex
+  summarise(total_stops = sum(total_stops), .groups = "drop") |>  # Aggregate stop counts
+  ggplot(aes(x = state, y = total_stops, fill = subject_sex)) + 
+  geom_col(position = "dodge") +  # Create side-by-side bars for each sex
+  labs(
+    title = "Total Police Encounters by Sex in AZ, CA, and CO",
+    x = "State",
+    y = "Number of Encounters",
+    fill = "Sex" 
+  ) +
+  theme_minimal()
 ```
 
 
-This plot displays the total number of police stops by gender in each of the three states, Colorado, Arizona, and California, and the results are very significant! In each case, males encounter police more than twice as often as females do! Although this fact has been well documented, it has not been depicted nearly is much in our society's media culture. Of course, the reasons for this large of a discrepancy are likely multiple, but among them could be a systemic propensity for cops to choose to pull-over or interact with males over females. Other research also suggests that the majority of this difference stems from the two facts that men drive more often than women and tend to be riskier and more aggressive.
+This plot displays the total number of police stops by gender in each of the three states, Colorado, Arizona, and California, and the results are very significant! In each case, males encounter police more than twice as often as females do! Although this fact has been well documented, it has not been depicted nearly as much as in our society's media culture. Of course, the reasons for this large of a discrepancy are likely multiple, but among them could be a systemic propensity for cops to choose to pull-over or interact with males over females. Other research has found that men generally spend more time driving and tend to engage in riskier driving behaviors (AAA Foundation, 2017), which could help explain some of the observed gender disparities in these traffic stops.
+
+
+
+```{r}
+DBI::dbDisconnect(con_traffic)
+```
 
 
 
 
-References: 
+## References ##
 
-Pierson, Emma, Camelia Simoiu, Jan Overgoor, Sam Corbett-Davies, Daniel     Jenson, Amy Shoemaker, Vignesh Ramachandran, et al. 2020. “A Large-Scale   Analysis of Racial Disparities in Police Stops Across the United          States.” Nature Human Behaviour, 1–10.
+Edmonds, Ellen. 2020. “Survey Says: Men Are More Aggressive Behind the Wheel.” AAA Newsroom, December 3, 2020.
 
-
-
-
+Pierson, Emma, Camelia Simoiu, Jan Overgoor, Sam Corbett-Davies, Daniel Jenson, Amy Shoemaker, Vignesh Ramachandran, et al. 2020. “A Large-Scale Analysis of Racial Disparities in Police Stops Across the United States.” Nature Human Behaviour, 1–10.

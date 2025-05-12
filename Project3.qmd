@@ -10,19 +10,19 @@ execute:
   message: false
 ---
 
-**Inspiration**
+## Inspiration ##
 
 I once heard of a Apple interview question in which the candidate is given 100 coins (90 with heads facing up and 10 with tails facing up) and then asked to separate them into two piles of any size such that each pile has the same number of coins with the tails side facing up. Sounds simple enough, but there's a catch... the candidate was to be blindfolded the entire time. This means they never saw the coins and have no idea which 10 coins are on tails or which 90 coins are on heads.
 
 There is an algorithmic approach to this problem such that you can guarantee your answer will be true, but I was not able to come up with it. The best I could think to do is to randomly perform 100 coin flips and then separate my flipped coins into two piles of 50. I would then just have to hope that each pile has the same number of tails facing up.
 
 
-**Motivating Question**
+## Motivating Question ##
 
 Although my answer is not exactly what the interviewers would have in mind, I have always been curious as to how often my answer would end up being correct merely by chance. Until now, I haven't been able to figure out a way to answer this question without doing long mathematical calculations, and the free version of ChatGPT seems to give me a different answer each time I ask it, so I'm very excited to finally approximate the answer using this simulation.
 
 
-**Results**
+## Results ##
 
 ```{r simulate-piles, echo=TRUE, warning=FALSE, message=FALSE}
 # Simulate flipping two piles of coins and checking if the number of tails match
@@ -75,7 +75,7 @@ ggplot(results_df, aes(x = pile_size, y = probability)) +
   theme_minimal()
 ```
 
-**Insights**
+## Insights ##
 
 This plot depicts the relationship between the number of coins in each pile, and the probability that the flips will result in the same number of tails. As you can see, if you wanted to maximize your odds of success, the smartest thing to do would be to minimize the pile size. It should be noted, however, that although the probability that you get the exact same number of heads in each pile decreases as the pile size increases, the probability that you get a similar number would increase. Essentially, what is happening here is the number of total possible outcomes is increasing with the number of coins in each pile so the outcomes are more granular, and therefore, more likely to be unequal. In the interview question I heard about, the pile size was 50, and we can see in the graph that this corresponds to a probability score of about 0.8 (the same as before). 
 
