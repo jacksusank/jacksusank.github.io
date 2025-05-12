@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Jack Susank">
+<meta name="dcterms.date" content="2025-04-02">
+<meta name="description" content="Exploring a blindfolded coin sorting riddle through simulation and probability.">
 
-<title>Jack Susank</title>
+<title>Apple Interview Question! – Jack Susank</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +22,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -33,6 +70,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
@@ -88,7 +126,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
@@ -137,40 +175,100 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
+    </div>
 <!-- main -->
-<div class="quarto-about-marquee column-page">
-  <div class="about-image-container">
-    <img src="jacks_pai_photo.jpg" class="about-image " style="width: 100%;">
-  </div>
-  <div class="about-contents">
-    <header id="title-block-header" class="quarto-title-block default">
+<main class="content column-page" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Jack Susank</h1>
+<h1 class="title">Apple Interview Question!</h1>
 </div>
+
+<div>
+  <div class="description">
+    <p>Exploring a blindfolded coin sorting riddle through simulation and probability.</p>
+  </div>
+</div>
+
+
 <div class="quarto-title-meta column-page">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Jack Susank </p>
+          </div>
   </div>
-</header> <main class="content column-page" id="quarto-document-content">
-<p>Hi, I’m Jack Susank and welcome to my website! I’m a 3rd year computer science student at Pomona College with a passion for problem-solving, AI, and technology. Recently, I’ve been looking into Natural Language Processing (NLP), 3D Rendering/Printing, Data Visualization, and App Building. When I’m not working, studying, or learning about these things, I enjoy hiking, cooking, playing football, and spending time with my friends and family.</p>
-<p>Thanks for visiting my site! Feel free to check out my projects and get in touch!</p>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 2, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
 
 
-</main> 
-    <div class="about-footer"><div class="about-links">
-  <a href="https://www.linkedin.com/in/jack-susank-16b05a232/" class="about-link" rel="" target="">
-     <span class="about-link-text">LinkedIn</span>
-  </a>
-  <a href="https://github.com/jacksusank" class="about-link" rel="" target="">
-     <span class="about-link-text">GitHub</span>
-  </a>
-  <a href="https://github.com/jacksusank/jacksusank.github.io" class="about-link" rel="" target="">
-     <span class="about-link-text">Source Code</span>
-  </a>
+</header>
+
+
+<p><strong>Inspiration</strong></p>
+<p>I once heard of a Apple interview question in which the candidate is given 100 coins (90 with heads facing up and 10 with tails facing up) and then asked to separate them into two piles of any size such that each pile has the same number of coins with the tails side facing up. Sounds simple enough, but there’s a catch… the candidate was to be blindfolded the entire time. This means they never saw the coins and have no idea which 10 coins are on tails or which 90 coins are on heads.</p>
+<p>There is an algorithmic approach to this problem such that you can guarantee your answer will be true, but I was not able to come up with it. The best I could think to do is to randomly perform 100 coin flips and then separate my flipped coins into two piles of 50. I would then just have to hope that each pile has the same number of tails facing up.</p>
+<p><strong>Motivating Question</strong></p>
+<p>Although my answer is not exactly what the interviewers would have in mind, I have always been curious as to how often my answer would end up being correct merely by chance. Until now, I haven’t been able to figure out a way to answer this question without doing long mathematical calculations, and the free version of ChatGPT seems to give me a different answer each time I ask it, so I’m very excited to finally approximate the answer using this simulation.</p>
+<p><strong>Results</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate flipping two piles of coins and checking if the number of tails match</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>coin_flip <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to simulate flipping two piles and checking if they match in tails</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>flip_coins <span class="ot">&lt;-</span> <span class="cf">function</span>(pile_size) {</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  left_pile <span class="ot">&lt;-</span> <span class="fu">sample</span>(coin_flip, <span class="at">size =</span> pile_size, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  right_pile <span class="ot">&lt;-</span> <span class="fu">sample</span>(coin_flip, <span class="at">size =</span> pile_size, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  tails_match <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(<span class="fu">sum</span>(left_pile) <span class="sc">==</span> <span class="fu">sum</span>(right_pile), <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span> (tails_match)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Run the simulation many times and return the estimated probability</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>coin_simulation <span class="ot">&lt;-</span> <span class="cf">function</span>(pile_size, num_iterations) {</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  results <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span>num_iterations), <span class="sc">~</span><span class="fu">flip_coins</span>(<span class="at">pile_size =</span> pile_size)) </span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  probability_same_tails <span class="ot">&lt;-</span> <span class="fu">mean</span>(results)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(probability_same_tails)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">coin_simulation</span>(<span class="dv">50</span>, <span class="dv">100000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.08019</code></pre>
 </div>
 </div>
-  </div>
+<p>According to the simulation, I could expect to get the right answer about 8% of the time!</p>
+<p>While the results were lower than I had expected, the simulation provides a clear and consistent estimate. Out of curiosity, I have also simulated how the results would change with varying pile sizes. A plot with the results of that simulation can be seen below.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="Project3_files/figure-html/pile-size-plot-1.png" class="img-fluid figure-img" alt="A line plot showing that smaller pile sizes have a higher probability of matching tail counts between two piles." width="672"></p>
+<figcaption>Probability of matching tails as a function of pile size</figcaption>
+</figure>
 </div>
- <!-- /main -->
+</div>
+</div>
+<p><strong>Insights</strong></p>
+<p>This plot depicts the relationship between the number of coins in each pile, and the probability that the flips will result in the same number of tails. As you can see, if you wanted to maximize your odds of success, the smartest thing to do would be to minimize the pile size. It should be noted, however, that although the probability that you get the exact same number of heads in each pile decreases as the pile size increases, the probability that you get a similar number would increase. Essentially, what is happening here is the number of total possible outcomes is increasing with the number of coins in each pile so the outcomes are more granular, and therefore, more likely to be unequal. In the interview question I heard about, the pile size was 50, and we can see in the graph that this corresponds to a probability score of about 0.8 (the same as before).</p>
+<p>I think these results have applications outside of a random Apple interview question like this one because they speak to the best way to maximize repeated success in a probabilistic setting. These results speak to the fact that reducing the number of potential outcomes reduces the probability of getting different outcomes. In this case, you can’t reduce the number of outcomes by changing the number of sides on a coin, but you can reduce the number of outcomes by reducing the number of times you perform the experiment. This is also true in general. Imagine if you were to perform the same simulation except with 100 six-sided-dice instead of 100 two-sided coins. The results would follow the same pattern.</p>
+
+
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -191,6 +289,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
   const isCodeAnnotation = (el) => {
     for (const clz of el.classList) {
       if (clz.startsWith('code-annotation-')) {                     
