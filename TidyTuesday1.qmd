@@ -30,7 +30,7 @@ water_insecurity_2022 <- na.omit(water_insecurity_2022)
 
 ```
 
-```{r, alt-text: This is a scatterplot of county population vs. percent lacking plumbing. The vast majority of points have a low population (less than 2.5 million people) and a low percent lacking plumbing (less than 1%). There are also some outliers with high population (max of 10,000,000 people), and some with high percent lacking plumbing (max of 3.7%), but there are no counties with a high population and a high percent lacking plumbing.}
+```{r, fig.alt="This is a scatterplot of county population vs. percent lacking plumbing. The vast majority of points have a low population (less than 2.5 million people) and a low percent lacking plumbing (less than 1%). There are also some outliers with high population (max of 10,000,000 people), and some with high percent lacking plumbing (max of 3.7%), but there are no counties with a high population and a high percent lacking plumbing."}
 ggplot(water_insecurity_2022, aes(x = total_pop, y = percent_lacking_plumbing)) +
   # Add blue semi-transparent points for each county
   geom_point(color = "blue", size = 2, alpha = 0.5) +

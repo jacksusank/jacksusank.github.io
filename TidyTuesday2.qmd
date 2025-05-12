@@ -37,7 +37,7 @@ cleaned_cheeses <- cheeses |>
 ```
 
 
-```{r, alt-text = Scatterplot showing fat content versus calcium content for various cheeses, with each cheese type represented by a different color and a blue linear trend line indicating an overall weak negative relationship. Cheeses listed include Limburger, Petida, Anthotyro, and Provoleta.}
+```{r, fig.alt="Scatterplot showing fat content versus calcium content for various cheeses, with each cheese type represented by a different color and a blue linear trend line indicating an overall weak negative relationship. Cheeses listed include Limburger, Petida, Anthotyro, and Provoleta."}
 
 # Scatterplot of fat content vs. calcium content for various cheeses
 ggplot(cleaned_cheeses, aes(x = fat_content, y = calcium_content, color = cheese)) +

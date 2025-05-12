@@ -127,7 +127,7 @@ QuestionWords <- df |>
 
 **Plot 1:**
 
-```{r, fig-alt="Horizontal bar chart showing the top 10 most frequent words immediately before an exclamation mark. 'no' is the most frequent, followed by 'it', 'oh', and others.", echo=FALSE, warning=FALSE, message=FALSE}
+```{r, fig.alt="Horizontal bar chart showing the top 10 most frequent words immediately before an exclamation mark. 'no' is the most frequent, followed by 'it', 'oh', and others.", echo=FALSE, warning=FALSE, message=FALSE}
 TenWowWords <- WowWords |>
   head(10)
 
@@ -142,7 +142,7 @@ This plot displays the 10 words that most often appear immediately before an exc
 
 **Plot 2:**
 
-```{r    fig-alt="Horizontal bar chart showing the most frequent words immediately before a question mark. 'what' is the most common, followed by 'right', 'you', and others.", echo=FALSE, warning=FALSE, message=FALSE}
+```{r, fig.alt="Horizontal bar chart showing the most frequent words immediately before a question mark. 'what' is the most common, followed by 'right', 'you', and others.", echo=FALSE, warning=FALSE, message=FALSE}
 TenQuestionWords <- QuestionWords |>
   head(10)
   
@@ -158,7 +158,7 @@ This plot displays the 10 words that most often appear immediately before a ques
 
 **Plot 3:**
 
-```{r wow-vs-question-scatter, fig-alt="Scatter plot showing words like 'what', 'no', and 'hey' positioned by their relative frequencies before exclamation marks and question marks. Words vary in use, with some heavily favoring one punctuation mark.", echo=FALSE, warning=FALSE, message=FALSE}
+```{r wow-vs-question-scatter, fig.alt="Scatter plot showing words like 'what', 'no', and 'hey' positioned by their relative frequencies before exclamation marks and question marks. Words vary in use, with some heavily favoring one punctuation mark.", echo=FALSE, warning=FALSE, message=FALSE}
 
 # Extract and count words that appear immediately before an exclamation mark
 WowWords <- df |>

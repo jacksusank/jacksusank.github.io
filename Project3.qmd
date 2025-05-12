@@ -55,7 +55,7 @@ While the results were lower than I had expected, the simulation provides a clea
 
 
 
-```{r pile-size-plot, fig-cap="Probability of matching tails as a function of pile size", fig-alt="A line plot showing that smaller pile sizes have a higher probability of matching tail counts between two piles.", echo=FALSE, message=FALSE, warning=FALSE}
+```{r pile-size-plot, fig.cap="Probability of matching tails as a function of pile size", fig.alt="A line plot showing that smaller pile sizes have a higher probability of matching tail counts between two piles.", echo=FALSE, message=FALSE, warning=FALSE}
 library(ggplot2)
 
 pile_size <- (1:100)
