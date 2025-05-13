@@ -39,14 +39,21 @@
     "href": "FinalPresentation.html#run-the-simulation-many-times-and-return-the-resulting-estimated-probability",
     "title": "A Random Chance Approach to Apple’s Interview Question",
     "section": "Run the simulation many times and return the resulting estimated probability",
-    "text": "Run the simulation many times and return the resulting estimated probability\n\ncoin_simulation &lt;- function(pile_size, num_iterations) {\n  results &lt;- map_dbl(c(1:num_iterations), ~flip_coins(pile_size = pile_size)) \n  probability_same_tails &lt;- mean(results)\n  return(probability_same_tails)\n}\n\ncoin_simulation(50, 100000)\n\n[1] 0.07935"
+    "text": "Run the simulation many times and return the resulting estimated probability\n\ncoin_simulation &lt;- function(pile_size, num_iterations) {\n  results &lt;- map_dbl(c(1:num_iterations), ~flip_coins(pile_size = pile_size)) \n  probability_same_tails &lt;- mean(results)\n  return(probability_same_tails)\n}\n\ncoin_simulation(50, 100000)\n\n[1] 0.07961"
   },
   {
-    "objectID": "FinalPresentation.html#how-would-the-results-change-with-varying-pile-sizes",
-    "href": "FinalPresentation.html#how-would-the-results-change-with-varying-pile-sizes",
+    "objectID": "FinalPresentation.html#how-would-the-results-change-with-varying-pile-sizes-1",
+    "href": "FinalPresentation.html#how-would-the-results-change-with-varying-pile-sizes-1",
     "title": "A Random Chance Approach to Apple’s Interview Question",
-    "section": "How would the results change with varying pile sizes?",
-    "text": "How would the results change with varying pile sizes?\n\nProbability of matching tails as a function of pile size"
+    "section": "How would the results change with varying pile sizes (1)?",
+    "text": "How would the results change with varying pile sizes (1)?\n\nlibrary(ggplot2)\n\npile_size &lt;- (1:100)\n\nresults_100 &lt;- map_dbl(pile_size, coin_simulation, num_iterations = 5000)\nresults_df &lt;- data.frame(pile_size = pile_size, probability = results_100)\n\n\nggplot(results_df, aes(x = pile_size, y = probability)) +\n  geom_line(color = \"blue\") +\n  geom_point(color = \"red\") +\n  labs(\n    title = \"Probability of Equal Tails in Two Piles\",\n    x = \"Pile Size\",\n    y = \"Probability\"\n  ) +\n  theme_minimal()\n\n\nProbability of matching tails as a function of pile size"
+  },
+  {
+    "objectID": "FinalPresentation.html#how-would-the-results-change-with-varying-pile-sizes-2",
+    "href": "FinalPresentation.html#how-would-the-results-change-with-varying-pile-sizes-2",
+    "title": "A Random Chance Approach to Apple’s Interview Question",
+    "section": "How would the results change with varying pile sizes (2)?",
+    "text": "How would the results change with varying pile sizes (2)?\n\nProbability of matching tails as a function of pile size"
   },
   {
     "objectID": "FinalPresentation.html#conclusions",
@@ -88,7 +95,7 @@
     "href": "Project3.html#results",
     "title": "Apple Interview Question!",
     "section": "Results",
-    "text": "Results\n\n# Simulate flipping two piles of coins and checking if the number of tails match\nlibrary(purrr)\n\ncoin_flip &lt;- c(0, 1)\n\n# Function to simulate flipping two piles and checking if they match in tails\nflip_coins &lt;- function(pile_size) {\n  left_pile &lt;- sample(coin_flip, size = pile_size, replace = TRUE)\n  right_pile &lt;- sample(coin_flip, size = pile_size, replace = TRUE)\n  \n  tails_match &lt;- ifelse(sum(left_pile) == sum(right_pile), 1, 0)\n  return (tails_match)\n}\n\n# Run the simulation many times and return the estimated probability\ncoin_simulation &lt;- function(pile_size, num_iterations) {\n  results &lt;- map_dbl(c(1:num_iterations), ~flip_coins(pile_size = pile_size)) \n  probability_same_tails &lt;- mean(results)\n  return(probability_same_tails)\n}\n\ncoin_simulation(50, 100000)\n\n[1] 0.07895\n\n\nAccording to the simulation, I could expect to get the right answer about 8% of the time!\nWhile the results were lower than I had expected, the simulation provides a clear and consistent estimate. Out of curiosity, I have also simulated how the results would change with varying pile sizes. A plot with the results of that simulation can be seen below.\n\n\n\n\n\nProbability of matching tails as a function of pile size"
+    "text": "Results\n\n# Simulate flipping two piles of coins and checking if the number of tails match\nlibrary(purrr)\n\ncoin_flip &lt;- c(0, 1)\n\n# Function to simulate flipping two piles and checking if they match in tails\nflip_coins &lt;- function(pile_size) {\n  left_pile &lt;- sample(coin_flip, size = pile_size, replace = TRUE)\n  right_pile &lt;- sample(coin_flip, size = pile_size, replace = TRUE)\n  \n  tails_match &lt;- ifelse(sum(left_pile) == sum(right_pile), 1, 0)\n  return (tails_match)\n}\n\n# Run the simulation many times and return the estimated probability\ncoin_simulation &lt;- function(pile_size, num_iterations) {\n  results &lt;- map_dbl(c(1:num_iterations), ~flip_coins(pile_size = pile_size)) \n  probability_same_tails &lt;- mean(results)\n  return(probability_same_tails)\n}\n\ncoin_simulation(50, 100000)\n\n[1] 0.07979\n\n\nAccording to the simulation, I could expect to get the right answer about 8% of the time!\nWhile the results were lower than I had expected, the simulation provides a clear and consistent estimate. Out of curiosity, I have also simulated how the results would change with varying pile sizes. A plot with the results of that simulation can be seen below.\n\n\n\n\n\nProbability of matching tails as a function of pile size"
   },
   {
     "objectID": "Project3.html#insights",
@@ -109,7 +116,7 @@
     "href": "Project2.html#here-is-a-random-sample-of-our-data",
     "title": "The Office!",
     "section": "Here is a random sample of our data",
-    "text": "Here is a random sample of our data\n\ndf &lt;- read.csv(\"the-office_lines.csv\", fileEncoding = \"UTF-8\")\n\ndf |&gt;\n  sample_n(5) |&gt;\n  knitr::kable()\n\n\n\n\n\n\n\n\n\n\n\nX\nCharacter\nLine\nSeason\nEpisode_Number\n\n\n\n\n34020\nPam\nOkay– just– don’t ever date a member of my family again.\n6\n8\n\n\n44401\nMichael\nWhat are you doing?\n7\n17\n\n\n52170\nDwight\n[attempting to break from Jim’s grasp] Ah!\n8\n18\n\n\n43127\nMichael\nShe will have a greekaccino.\n7\n13\n\n\n60062\nAndy\nThank you. [steps into conference room]\n9\n21"
+    "text": "Here is a random sample of our data\n\ndf &lt;- read.csv(\"the-office_lines.csv\", fileEncoding = \"UTF-8\")\n\ndf |&gt;\n  sample_n(5) |&gt;\n  knitr::kable()\n\n\n\n\n\n\n\n\n\n\n\nX\nCharacter\nLine\nSeason\nEpisode_Number\n\n\n\n\n35126\nMichael\nI’ll call him. I’ll call David.\n6\n12\n\n\n59176\nPam\nYeah, I guess I could.\n9\n18\n\n\n14818\nKelly\nOh my God. You’re so in love now.\n3\n16\n\n\n43448\nMichael\nWith that I can buy… half the menu.\n7\n14\n\n\n56432\nPam\n[Clears her throat] The party planning committee, minus Angela, has decided that we’re all going to do Dwight’s Christmas.\n9\n9"
   },
   {
     "objectID": "Project2.html#how-often-does-downsizing-come-up",

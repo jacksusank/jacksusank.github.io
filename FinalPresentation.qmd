@@ -87,7 +87,29 @@ coin_simulation <- function(pile_size, num_iterations) {
 coin_simulation(50, 100000)
 ```
 
-## How would the results change with varying pile sizes?
+## How would the results change with varying pile sizes (1)?
+
+```{r pile-size-code, fig.cap="Probability of matching tails as a function of pile size", fig.alt="A line plot showing that smaller pile sizes have a higher probability of matching tail counts between two piles.", message=FALSE, warning=FALSE}
+library(ggplot2)
+
+pile_size <- (1:100)
+
+results_100 <- map_dbl(pile_size, coin_simulation, num_iterations = 5000)
+results_df <- data.frame(pile_size = pile_size, probability = results_100)
+
+
+ggplot(results_df, aes(x = pile_size, y = probability)) +
+  geom_line(color = "blue") +
+  geom_point(color = "red") +
+  labs(
+    title = "Probability of Equal Tails in Two Piles",
+    x = "Pile Size",
+    y = "Probability"
+  ) +
+  theme_minimal()
+```
+
+## How would the results change with varying pile sizes (2)?
 
 ```{r pile-size-plot, fig.cap="Probability of matching tails as a function of pile size", fig.alt="A line plot showing that smaller pile sizes have a higher probability of matching tail counts between two piles.", echo=FALSE, message=FALSE, warning=FALSE}
 library(ggplot2)
@@ -108,7 +130,6 @@ ggplot(results_df, aes(x = pile_size, y = probability)) +
   ) +
   theme_minimal()
 ```
-
 
 
 ## Conclusions

@@ -10,6 +10,8 @@ website:
         text: Home
       - text: "Resume"
         href: about.html
+      - text: "Simulation Slideshow"
+        href: FinalPresentation.html
       - text: "Data Viz"
         menu: 
           - href: TidyTuesday1.html
