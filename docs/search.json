@@ -4,14 +4,21 @@
     "href": "FinalPresentation.html#can-you-solve-apples-coin-interview-question-while-blindfolded",
     "title": "A Random Chance Approach to Apple’s Interview Question",
     "section": "Can you solve Apple’s Coin Interview Question while blindfolded?",
-    "text": "Can you solve Apple’s Coin Interview Question while blindfolded?\nYou have:\n\n100 coins (90 heads, 10 tails)\nYou’re blindfolded\nYou cannot feel which side of the coin is facing up\n\nGoal: Split the coins into two piles with the same number of tails facing up.\nCan you do it?"
+    "text": "Can you solve Apple’s Coin Interview Question while blindfolded?\nYou have:\n\n100 coins (90 heads, 10 tails)\nYou’re blindfolded\nYou cannot feel which side of the coin is facing up\n\nGoal: Split the coins into two piles with the same number of tails facing up."
   },
   {
     "objectID": "FinalPresentation.html#best-solution",
     "href": "FinalPresentation.html#best-solution",
     "title": "A Random Chance Approach to Apple’s Interview Question",
     "section": "Best Solution",
-    "text": "Best Solution\nStep 1: Select 10 coins at random and move them to the side\nStep 2: Flip all 10 of those coins over so that if heads was facing up before, tails is facing up now.\nStep 3: Take off your blindfold because you’re done! The number of tails in the pile of 10 coins will always be the same as the number of tails in the pile of 90 coins."
+    "text": "Best Solution\nStep 1: Select 10 coins at random and move them to the side\nStep 2: Flip all 10 of those coins over so that if heads was facing up before, tails is facing up now.\nStep 3: Take off your blindfold because you’re done! The number of tails in the pile of 10 coins will always be the same as the number of tails in the pile of 90 coins.\n\nLogical Summary"
+  },
+  {
+    "objectID": "FinalPresentation.html#demo-video",
+    "href": "FinalPresentation.html#demo-video",
+    "title": "A Random Chance Approach to Apple’s Interview Question",
+    "section": "Demo Video",
+    "text": "Demo Video\nCoin Question Solution"
   },
   {
     "objectID": "FinalPresentation.html#my-solution",
@@ -39,7 +46,7 @@
     "href": "FinalPresentation.html#run-the-simulation-many-times-and-return-the-resulting-estimated-probability",
     "title": "A Random Chance Approach to Apple’s Interview Question",
     "section": "Run the simulation many times and return the resulting estimated probability",
-    "text": "Run the simulation many times and return the resulting estimated probability\n\ncoin_simulation &lt;- function(pile_size, num_iterations) {\n  results &lt;- map_dbl(c(1:num_iterations), ~flip_coins(pile_size = pile_size)) \n  probability_same_tails &lt;- mean(results)\n  return(probability_same_tails)\n}\n\ncoin_simulation(50, 100000)\n\n[1] 0.07961"
+    "text": "Run the simulation many times and return the resulting estimated probability\n\ncoin_simulation &lt;- function(pile_size, num_iterations) {\n  results &lt;- map_dbl(c(1:num_iterations), ~flip_coins(pile_size = pile_size)) \n  probability_same_tails &lt;- mean(results)\n  return(probability_same_tails)\n}\n\ncoin_simulation(50, 100000)\n\n[1] 0.07858"
   },
   {
     "objectID": "FinalPresentation.html#how-would-the-results-change-with-varying-pile-sizes-1",
@@ -95,7 +102,7 @@
     "href": "Project3.html#results",
     "title": "Apple Interview Question!",
     "section": "Results",
-    "text": "Results\n\n# Simulate flipping two piles of coins and checking if the number of tails match\nlibrary(purrr)\n\ncoin_flip &lt;- c(0, 1)\n\n# Function to simulate flipping two piles and checking if they match in tails\nflip_coins &lt;- function(pile_size) {\n  left_pile &lt;- sample(coin_flip, size = pile_size, replace = TRUE)\n  right_pile &lt;- sample(coin_flip, size = pile_size, replace = TRUE)\n  \n  tails_match &lt;- ifelse(sum(left_pile) == sum(right_pile), 1, 0)\n  return (tails_match)\n}\n\n# Run the simulation many times and return the estimated probability\ncoin_simulation &lt;- function(pile_size, num_iterations) {\n  results &lt;- map_dbl(c(1:num_iterations), ~flip_coins(pile_size = pile_size)) \n  probability_same_tails &lt;- mean(results)\n  return(probability_same_tails)\n}\n\ncoin_simulation(50, 100000)\n\n[1] 0.07979\n\n\nAccording to the simulation, I could expect to get the right answer about 8% of the time!\nWhile the results were lower than I had expected, the simulation provides a clear and consistent estimate. Out of curiosity, I have also simulated how the results would change with varying pile sizes. A plot with the results of that simulation can be seen below.\n\n\n\n\n\nProbability of matching tails as a function of pile size"
+    "text": "Results\n\n# Simulate flipping two piles of coins and checking if the number of tails match\nlibrary(purrr)\n\ncoin_flip &lt;- c(0, 1)\n\n# Function to simulate flipping two piles and checking if they match in tails\nflip_coins &lt;- function(pile_size) {\n  left_pile &lt;- sample(coin_flip, size = pile_size, replace = TRUE)\n  right_pile &lt;- sample(coin_flip, size = pile_size, replace = TRUE)\n  \n  tails_match &lt;- ifelse(sum(left_pile) == sum(right_pile), 1, 0)\n  return (tails_match)\n}\n\n# Run the simulation many times and return the estimated probability\ncoin_simulation &lt;- function(pile_size, num_iterations) {\n  results &lt;- map_dbl(c(1:num_iterations), ~flip_coins(pile_size = pile_size)) \n  probability_same_tails &lt;- mean(results)\n  return(probability_same_tails)\n}\n\ncoin_simulation(50, 100000)\n\n[1] 0.07868\n\n\nAccording to the simulation, I could expect to get the right answer about 8% of the time!\nWhile the results were lower than I had expected, the simulation provides a clear and consistent estimate. Out of curiosity, I have also simulated how the results would change with varying pile sizes. A plot with the results of that simulation can be seen below.\n\n\n\n\n\nProbability of matching tails as a function of pile size"
   },
   {
     "objectID": "Project3.html#insights",
@@ -116,7 +123,7 @@
     "href": "Project2.html#here-is-a-random-sample-of-our-data",
     "title": "The Office!",
     "section": "Here is a random sample of our data",
-    "text": "Here is a random sample of our data\n\ndf &lt;- read.csv(\"the-office_lines.csv\", fileEncoding = \"UTF-8\")\n\ndf |&gt;\n  sample_n(5) |&gt;\n  knitr::kable()\n\n\n\n\n\n\n\n\n\n\n\nX\nCharacter\nLine\nSeason\nEpisode_Number\n\n\n\n\n35126\nMichael\nI’ll call him. I’ll call David.\n6\n12\n\n\n59176\nPam\nYeah, I guess I could.\n9\n18\n\n\n14818\nKelly\nOh my God. You’re so in love now.\n3\n16\n\n\n43448\nMichael\nWith that I can buy… half the menu.\n7\n14\n\n\n56432\nPam\n[Clears her throat] The party planning committee, minus Angela, has decided that we’re all going to do Dwight’s Christmas.\n9\n9"
+    "text": "Here is a random sample of our data\n\ndf &lt;- read.csv(\"the-office_lines.csv\", fileEncoding = \"UTF-8\")\n\ndf |&gt;\n  sample_n(5) |&gt;\n  knitr::kable()\n\n\n\n\n\n\n\n\n\n\n\nX\nCharacter\nLine\nSeason\nEpisode_Number\n\n\n\n\n27348\nStanley\nIt’s true. Around this office, in the past, I have been a little abrupt with people…\n5\n13\n\n\n585\nDwight\nNo. But I am, I am human, right? [Pam hesitates]\n1\n2\n\n\n49044\nRobert\nAnd why is Black Rock suddenly the paragon by which all hedge funds must now be compared?\n8\n8\n\n\n35689\nJim\nI… Why would you just say something like that?\n6\n15\n\n\n851\nDwight\nOh, um… Jan wants you to call her.\n1\n3"
   },
   {
     "objectID": "Project2.html#how-often-does-downsizing-come-up",

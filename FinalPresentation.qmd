@@ -23,9 +23,6 @@ You have:
 
 Goal: Split the coins into two piles with the same number of tails facing up.
 
-Can you do it?
-
-
 ## Best Solution
 Step 1: Select 10 coins at random and move them to the side
 
@@ -35,6 +32,12 @@ Step 2: Flip all 10 of those coins over so that if heads was facing up before, t
 
 Step 3: Take off your blindfold because you're done! The number of tails in the pile of 10 coins will always be the same as the number of tails in the pile of 90 coins.
 
+
+![Logical Summary](media/CoinSolution.png)
+
+## Demo Video
+
+[Coin Question Solution](https://youtu.be/WsjQXUXUmSc?si=6-SkojOiEiWUCamv&t=542)
 
 ## My Solution
 
