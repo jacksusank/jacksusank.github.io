@@ -142,7 +142,8 @@ ggplot(results_df, aes(x = pile_size, y = probability)) +
 * Low number of trials essentially lowers the number of bins
 
 
-![Normal Distribution](media/Small_Normal_Bins.png)
+![32](media/img2.png)
+![2](media/img1.png)
 
 ## Alternative Solution
 

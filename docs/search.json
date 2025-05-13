@@ -46,7 +46,7 @@
     "href": "FinalPresentation.html#run-the-simulation-many-times-and-return-the-resulting-estimated-probability",
     "title": "A Random Chance Approach to Apple’s Interview Question",
     "section": "Run the simulation many times and return the resulting estimated probability",
-    "text": "Run the simulation many times and return the resulting estimated probability\n\ncoin_simulation &lt;- function(pile_size, num_iterations) {\n  results &lt;- map_dbl(c(1:num_iterations), ~flip_coins(pile_size = pile_size)) \n  probability_same_tails &lt;- mean(results)\n  return(probability_same_tails)\n}\n\ncoin_simulation(50, 100000)\n\n[1] 0.07858"
+    "text": "Run the simulation many times and return the resulting estimated probability\n\ncoin_simulation &lt;- function(pile_size, num_iterations) {\n  results &lt;- map_dbl(c(1:num_iterations), ~flip_coins(pile_size = pile_size)) \n  probability_same_tails &lt;- mean(results)\n  return(probability_same_tails)\n}\n\ncoin_simulation(50, 100000)\n\n[1] 0.07927"
   },
   {
     "objectID": "FinalPresentation.html#how-would-the-results-change-with-varying-pile-sizes-1",
@@ -67,7 +67,7 @@
     "href": "FinalPresentation.html#conclusions",
     "title": "A Random Chance Approach to Apple’s Interview Question",
     "section": "Conclusions",
-    "text": "Conclusions\n\nI’m not getting the job with this approach\nReducing the size of the outcome space also reduces the probability of getting different outcomes over multiple trials\nLow number of trials essentially lowers the number of bins\n\n\nNormal Distribution"
+    "text": "Conclusions\n\nI’m not getting the job with this approach\nReducing the size of the outcome space also reduces the probability of getting different outcomes over multiple trials\nLow number of trials essentially lowers the number of bins"
   },
   {
     "objectID": "FinalPresentation.html#alternative-solution",
@@ -102,7 +102,7 @@
     "href": "Project3.html#results",
     "title": "Apple Interview Question!",
     "section": "Results",
-    "text": "Results\n\n# Simulate flipping two piles of coins and checking if the number of tails match\nlibrary(purrr)\n\ncoin_flip &lt;- c(0, 1)\n\n# Function to simulate flipping two piles and checking if they match in tails\nflip_coins &lt;- function(pile_size) {\n  left_pile &lt;- sample(coin_flip, size = pile_size, replace = TRUE)\n  right_pile &lt;- sample(coin_flip, size = pile_size, replace = TRUE)\n  \n  tails_match &lt;- ifelse(sum(left_pile) == sum(right_pile), 1, 0)\n  return (tails_match)\n}\n\n# Run the simulation many times and return the estimated probability\ncoin_simulation &lt;- function(pile_size, num_iterations) {\n  results &lt;- map_dbl(c(1:num_iterations), ~flip_coins(pile_size = pile_size)) \n  probability_same_tails &lt;- mean(results)\n  return(probability_same_tails)\n}\n\ncoin_simulation(50, 100000)\n\n[1] 0.07868\n\n\nAccording to the simulation, I could expect to get the right answer about 8% of the time!\nWhile the results were lower than I had expected, the simulation provides a clear and consistent estimate. Out of curiosity, I have also simulated how the results would change with varying pile sizes. A plot with the results of that simulation can be seen below.\n\n\n\n\n\nProbability of matching tails as a function of pile size"
+    "text": "Results\n\n# Simulate flipping two piles of coins and checking if the number of tails match\nlibrary(purrr)\n\ncoin_flip &lt;- c(0, 1)\n\n# Function to simulate flipping two piles and checking if they match in tails\nflip_coins &lt;- function(pile_size) {\n  left_pile &lt;- sample(coin_flip, size = pile_size, replace = TRUE)\n  right_pile &lt;- sample(coin_flip, size = pile_size, replace = TRUE)\n  \n  tails_match &lt;- ifelse(sum(left_pile) == sum(right_pile), 1, 0)\n  return (tails_match)\n}\n\n# Run the simulation many times and return the estimated probability\ncoin_simulation &lt;- function(pile_size, num_iterations) {\n  results &lt;- map_dbl(c(1:num_iterations), ~flip_coins(pile_size = pile_size)) \n  probability_same_tails &lt;- mean(results)\n  return(probability_same_tails)\n}\n\ncoin_simulation(50, 100000)\n\n[1] 0.07851\n\n\nAccording to the simulation, I could expect to get the right answer about 8% of the time!\nWhile the results were lower than I had expected, the simulation provides a clear and consistent estimate. Out of curiosity, I have also simulated how the results would change with varying pile sizes. A plot with the results of that simulation can be seen below.\n\n\n\n\n\nProbability of matching tails as a function of pile size"
   },
   {
     "objectID": "Project3.html#insights",
@@ -123,7 +123,7 @@
     "href": "Project2.html#here-is-a-random-sample-of-our-data",
     "title": "The Office!",
     "section": "Here is a random sample of our data",
-    "text": "Here is a random sample of our data\n\ndf &lt;- read.csv(\"the-office_lines.csv\", fileEncoding = \"UTF-8\")\n\ndf |&gt;\n  sample_n(5) |&gt;\n  knitr::kable()\n\n\n\n\n\n\n\n\n\n\n\nX\nCharacter\nLine\nSeason\nEpisode_Number\n\n\n\n\n27348\nStanley\nIt’s true. Around this office, in the past, I have been a little abrupt with people…\n5\n13\n\n\n585\nDwight\nNo. But I am, I am human, right? [Pam hesitates]\n1\n2\n\n\n49044\nRobert\nAnd why is Black Rock suddenly the paragon by which all hedge funds must now be compared?\n8\n8\n\n\n35689\nJim\nI… Why would you just say something like that?\n6\n15\n\n\n851\nDwight\nOh, um… Jan wants you to call her.\n1\n3"
+    "text": "Here is a random sample of our data\n\ndf &lt;- read.csv(\"the-office_lines.csv\", fileEncoding = \"UTF-8\")\n\ndf |&gt;\n  sample_n(5) |&gt;\n  knitr::kable()\n\n\n\n\n\n\n\n\n\n\n\nX\nCharacter\nLine\nSeason\nEpisode_Number\n\n\n\n\n28596\nPam\n[on phone] Dunder Mifflin, this is Pam. Oh hi, David. He’s having a colonoscopy. Alright, I’ll find out if he’s out yet.\n5\n17\n\n\n59081\nPam\nYeah, sounds good. Ok.\n9\n18\n\n\n42619\nDwight\nIn the end, the greatest snowball isn’t a snowball at all. It’s fear. Merry Christmas.\n7\n11\n\n\n45130\n“Jo”\nBetter.\n7\n20\n\n\n33504\nMichael\nYou never said anything.\n6\n7"
   },
   {
     "objectID": "Project2.html#how-often-does-downsizing-come-up",
