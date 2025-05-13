@@ -1,17 +1,185 @@
 [
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "Resume as of 2/5/2024",
-    "section": "",
-    "text": "Resume Download\n\n\n\nResume"
+    "objectID": "FinalPresentation.html#can-you-solve-apples-coin-interview-question-while-blindfolded",
+    "href": "FinalPresentation.html#can-you-solve-apples-coin-interview-question-while-blindfolded",
+    "title": "A Random Chance Approach to Apple’s Interview Question",
+    "section": "Can you solve Apple’s Coin Interview Question while blindfolded?",
+    "text": "Can you solve Apple’s Coin Interview Question while blindfolded?\nYou have:\n\n100 coins (90 heads, 10 tails)\nYou’re blindfolded\nYou cannot feel which side of the coin is facing up\n\nGoal: Split the coins into two piles with the same number of tails facing up.\nCan you do it?"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Jack Susank",
+    "objectID": "FinalPresentation.html#best-solution",
+    "href": "FinalPresentation.html#best-solution",
+    "title": "A Random Chance Approach to Apple’s Interview Question",
+    "section": "Best Solution",
+    "text": "Best Solution\nStep 1: Select 10 coins at random and move them to the side\nStep 2: Flip all 10 of those coins over so that if heads was facing up before, tails is facing up now.\nStep 3: Take off your blindfold because you’re done! The number of tails in the pile of 10 coins will always be the same as the number of tails in the pile of 90 coins."
+  },
+  {
+    "objectID": "FinalPresentation.html#my-solution",
+    "href": "FinalPresentation.html#my-solution",
+    "title": "A Random Chance Approach to Apple’s Interview Question",
+    "section": "My Solution",
+    "text": "My Solution\nDo 100 coin flips and then separate the coins into two piles of 50.\nSometimes, the number of tails in the left pile will match the number of tails in the right pile, and you will get the job!"
+  },
+  {
+    "objectID": "FinalPresentation.html#problems",
+    "href": "FinalPresentation.html#problems",
+    "title": "A Random Chance Approach to Apple’s Interview Question",
+    "section": "Problems",
+    "text": "Problems\n\nI know my approach doesn’t work every time\nI don’t know how often it doesn’t work\n\nMotivating Question: What percent of the time will my approach work by chance?"
+  },
+  {
+    "objectID": "FinalPresentation.html#simulation-function",
+    "href": "FinalPresentation.html#simulation-function",
+    "title": "A Random Chance Approach to Apple’s Interview Question",
+    "section": "Simulation Function",
+    "text": "Simulation Function\n\n# Simulate flipping two piles of coins and checking if \n# the number of tails match\nlibrary(purrr)\n\n# Outcome space of a coin flip\n# 0 -&gt; heads\n# 1 -&gt; tails\ncoin_flip &lt;- c(0, 1)\n\n# Function to simulate flipping two piles and checking\n# if they match in tails\nflip_coins &lt;- function(pile_size) {\n  left_pile &lt;- sample(coin_flip, size = pile_size, replace = TRUE)\n  right_pile &lt;- sample(coin_flip, size = pile_size, replace = TRUE)\n  \n  \n  # Return 1 if match, 0 otherwise\n  tails_match &lt;- ifelse(sum(left_pile) == sum(right_pile), 1, 0)\n  return (tails_match)\n}"
+  },
+  {
+    "objectID": "FinalPresentation.html#run-the-simulation-many-times-and-return-the-resulting-estimated-probability",
+    "href": "FinalPresentation.html#run-the-simulation-many-times-and-return-the-resulting-estimated-probability",
+    "title": "A Random Chance Approach to Apple’s Interview Question",
+    "section": "Run the simulation many times and return the resulting estimated probability",
+    "text": "Run the simulation many times and return the resulting estimated probability\n\ncoin_simulation &lt;- function(pile_size, num_iterations) {\n  results &lt;- map_dbl(c(1:num_iterations), ~flip_coins(pile_size = pile_size)) \n  probability_same_tails &lt;- mean(results)\n  return(probability_same_tails)\n}\n\ncoin_simulation(50, 100000)\n\n[1] 0.07935"
+  },
+  {
+    "objectID": "FinalPresentation.html#how-would-the-results-change-with-varying-pile-sizes",
+    "href": "FinalPresentation.html#how-would-the-results-change-with-varying-pile-sizes",
+    "title": "A Random Chance Approach to Apple’s Interview Question",
+    "section": "How would the results change with varying pile sizes?",
+    "text": "How would the results change with varying pile sizes?\n\nProbability of matching tails as a function of pile size"
+  },
+  {
+    "objectID": "FinalPresentation.html#conclusions",
+    "href": "FinalPresentation.html#conclusions",
+    "title": "A Random Chance Approach to Apple’s Interview Question",
+    "section": "Conclusions",
+    "text": "Conclusions\n\nI’m not getting the job with this approach\nReducing the size of the outcome space also reduces the probability of getting different outcomes over multiple trials\nLow number of trials essentially lowers the number of bins\n\n\nNormal Distribution"
+  },
+  {
+    "objectID": "FinalPresentation.html#alternative-solution",
+    "href": "FinalPresentation.html#alternative-solution",
+    "title": "A Random Chance Approach to Apple’s Interview Question",
+    "section": "Alternative Solution",
+    "text": "Alternative Solution\nStep 1: Throw 98 of the coins out the window.\nStep 2: Flip the last two coins and hope you get the same result."
+  },
+  {
+    "objectID": "Project3.html",
+    "href": "Project3.html",
+    "title": "Apple Interview Question!",
     "section": "",
-    "text": "Hi, I’m Jack Susank and welcome to my website! I’m a 3rd year computer science student at Pomona College with a passion for problem-solving, AI, and technology. Recently, I’ve been looking into Natural Language Processing (NLP), 3D Rendering/Printing, Data Visualization, and App Building. When I’m not working, studying, or learning about these things, I enjoy hiking, cooking, playing football, and spending time with my friends and family.\nThanks for visiting my site! Feel free to check out my projects and get in touch!"
+    "text": "I once heard of a Apple interview question in which the candidate is given 100 coins (90 with heads facing up and 10 with tails facing up) and then asked to separate them into two piles of any size such that each pile has the same number of coins with the tails side facing up. Sounds simple enough, but there’s a catch… the candidate was to be blindfolded the entire time. This means they never saw the coins and have no idea which 10 coins are on tails or which 90 coins are on heads.\nThere is an algorithmic approach to this problem such that you can guarantee your answer will be true, but I was not able to come up with it. The best I could think to do is to randomly perform 100 coin flips and then separate my flipped coins into two piles of 50. I would then just have to hope that each pile has the same number of tails facing up."
+  },
+  {
+    "objectID": "Project3.html#inspiration",
+    "href": "Project3.html#inspiration",
+    "title": "Apple Interview Question!",
+    "section": "",
+    "text": "I once heard of a Apple interview question in which the candidate is given 100 coins (90 with heads facing up and 10 with tails facing up) and then asked to separate them into two piles of any size such that each pile has the same number of coins with the tails side facing up. Sounds simple enough, but there’s a catch… the candidate was to be blindfolded the entire time. This means they never saw the coins and have no idea which 10 coins are on tails or which 90 coins are on heads.\nThere is an algorithmic approach to this problem such that you can guarantee your answer will be true, but I was not able to come up with it. The best I could think to do is to randomly perform 100 coin flips and then separate my flipped coins into two piles of 50. I would then just have to hope that each pile has the same number of tails facing up."
+  },
+  {
+    "objectID": "Project3.html#motivating-question",
+    "href": "Project3.html#motivating-question",
+    "title": "Apple Interview Question!",
+    "section": "Motivating Question",
+    "text": "Motivating Question\nAlthough my answer is not exactly what the interviewers would have in mind, I have always been curious as to how often my answer would end up being correct merely by chance. Until now, I haven’t been able to figure out a way to answer this question without doing long mathematical calculations, and the free version of ChatGPT seems to give me a different answer each time I ask it, so I’m very excited to finally approximate the answer using this simulation."
+  },
+  {
+    "objectID": "Project3.html#results",
+    "href": "Project3.html#results",
+    "title": "Apple Interview Question!",
+    "section": "Results",
+    "text": "Results\n\n# Simulate flipping two piles of coins and checking if the number of tails match\nlibrary(purrr)\n\ncoin_flip &lt;- c(0, 1)\n\n# Function to simulate flipping two piles and checking if they match in tails\nflip_coins &lt;- function(pile_size) {\n  left_pile &lt;- sample(coin_flip, size = pile_size, replace = TRUE)\n  right_pile &lt;- sample(coin_flip, size = pile_size, replace = TRUE)\n  \n  tails_match &lt;- ifelse(sum(left_pile) == sum(right_pile), 1, 0)\n  return (tails_match)\n}\n\n# Run the simulation many times and return the estimated probability\ncoin_simulation &lt;- function(pile_size, num_iterations) {\n  results &lt;- map_dbl(c(1:num_iterations), ~flip_coins(pile_size = pile_size)) \n  probability_same_tails &lt;- mean(results)\n  return(probability_same_tails)\n}\n\ncoin_simulation(50, 100000)\n\n[1] 0.07895\n\n\nAccording to the simulation, I could expect to get the right answer about 8% of the time!\nWhile the results were lower than I had expected, the simulation provides a clear and consistent estimate. Out of curiosity, I have also simulated how the results would change with varying pile sizes. A plot with the results of that simulation can be seen below.\n\n\n\n\n\nProbability of matching tails as a function of pile size"
+  },
+  {
+    "objectID": "Project3.html#insights",
+    "href": "Project3.html#insights",
+    "title": "Apple Interview Question!",
+    "section": "Insights",
+    "text": "Insights\nThis plot depicts the relationship between the number of coins in each pile, and the probability that the flips will result in the same number of tails. As you can see, if you wanted to maximize your odds of success, the smartest thing to do would be to minimize the pile size. It should be noted, however, that although the probability that you get the exact same number of heads in each pile decreases as the pile size increases, the probability that you get a similar number would increase. Essentially, what is happening here is the number of total possible outcomes is increasing with the number of coins in each pile so the outcomes are more granular, and therefore, more likely to be unequal. In the interview question I heard about, the pile size was 50, and we can see in the graph that this corresponds to a probability score of about 0.8 (the same as before).\nI think these results have applications outside of a random Apple interview question like this one because they speak to the best way to maximize repeated success in a probabilistic setting. These results show that reducing the number of potential outcomes reduces the probability of getting different outcomes. In this case, you can’t reduce the number of outcomes by changing the number of sides on a coin, but you can reduce the number of outcomes by reducing the number of times you perform the experiment. This is also true in general. Imagine if you were to perform the same simulation except with 100 six-sided-dice instead of 100 two-sided coins. The results would follow the same pattern."
+  },
+  {
+    "objectID": "Project2.html",
+    "href": "Project2.html",
+    "title": "The Office!",
+    "section": "",
+    "text": "For this project, I decided to analyze the dialogue from one of my favorite TV shows (The Office) to uncover some linguistic patterns across its characters and episodes. I explored topics like the frequency of “downsizing,” character verbosity, hesitation patterns, and punctuation quirks.\nlibrary(stringr)\nlibrary(dplyr)\nlibrary(tidyr)\nlibrary(ggplot2)"
+  },
+  {
+    "objectID": "Project2.html#here-is-a-random-sample-of-our-data",
+    "href": "Project2.html#here-is-a-random-sample-of-our-data",
+    "title": "The Office!",
+    "section": "Here is a random sample of our data",
+    "text": "Here is a random sample of our data\n\ndf &lt;- read.csv(\"the-office_lines.csv\", fileEncoding = \"UTF-8\")\n\ndf |&gt;\n  sample_n(5) |&gt;\n  knitr::kable()\n\n\n\n\n\n\n\n\n\n\n\nX\nCharacter\nLine\nSeason\nEpisode_Number\n\n\n\n\n34020\nPam\nOkay– just– don’t ever date a member of my family again.\n6\n8\n\n\n44401\nMichael\nWhat are you doing?\n7\n17\n\n\n52170\nDwight\n[attempting to break from Jim’s grasp] Ah!\n8\n18\n\n\n43127\nMichael\nShe will have a greekaccino.\n7\n13\n\n\n60062\nAndy\nThank you. [steps into conference room]\n9\n21"
+  },
+  {
+    "objectID": "Project2.html#how-often-does-downsizing-come-up",
+    "href": "Project2.html#how-often-does-downsizing-come-up",
+    "title": "The Office!",
+    "section": "How Often Does “Downsizing” Come Up?",
+    "text": "How Often Does “Downsizing” Come Up?\n\ndownsizing &lt;- df |&gt;\n  # Group the data by season and episode so we can count per episode\n  group_by(Season, Episode_Number) |&gt;\n  # Keep only lines that contain the word \"downsizing\" (case-insensitive, as a whole word)\n  filter(str_detect(Line, regex(\"\\\\bdownsizing\\\\b\", ignore_case = TRUE))) |&gt;\n  mutate(count_of_downsizing_lines = n()) |&gt;\n  mutate(SeasonEp = paste0(\"S:\", Season, \" E:\", Episode_Number)) |&gt;\n  select(SeasonEp, count_of_downsizing_lines) |&gt;\n  distinct()\ndownsizing\n\n# A tibble: 5 × 4\n# Groups:   Season, Episode_Number [5]\n  Season Episode_Number SeasonEp count_of_downsizing_lines\n   &lt;int&gt;          &lt;int&gt; &lt;chr&gt;                        &lt;int&gt;\n1      1              1 S:1 E:1                         10\n2      1              4 S:1 E:4                         14\n3      1              5 S:1 E:5                          1\n4      2              6 S:2 E:6                          1\n5      4              1 S:4 E:1                          1\n\n\nWhen I think of downsizing in The Office, I tend to think of the very first episode (10) so I am surprised to see that, in reality, the word appears in more lines (14) in the fourth episode."
+  },
+  {
+    "objectID": "Project2.html#who-talks-the-most-in-episode-1",
+    "href": "Project2.html#who-talks-the-most-in-episode-1",
+    "title": "The Office!",
+    "section": "Who Talks the Most in Episode 1?",
+    "text": "Who Talks the Most in Episode 1?\n\n# Identify the unique characters who speak in Season 1, Episode 1\nEp1Characters &lt;- df |&gt;\n  filter(Season == 1, Episode_Number == 1) |&gt;\n  distinct(Character)\n\n# Analyze average words per line for those characters across the entire dataset\nAvgWordsSpoken &lt;- df |&gt;\n  # Keep only rows where the character appeared in Episode 1\n  semi_join(Ep1Characters, by = \"Character\") |&gt;\n  group_by(Character) |&gt;\n  group_by(Character) |&gt;\n  mutate(Count = str_count(Line, \"\\\\b\\\\w+\\\\b\")) |&gt;\n  # Count the total number of lines spoken by each character\n  mutate(NumLines = n()) |&gt;\n  # Compute the average number of words per line per character\n  summarise(AvgCount = mean(Count), NumLines = NumLines) |&gt;\n  arrange(desc(AvgCount)) |&gt;\n  distinct()\n\nAvgWordsSpoken\n\n# A tibble: 16 × 3\n# Groups:   Character [16]\n   Character               AvgCount NumLines\n   &lt;chr&gt;                      &lt;dbl&gt;    &lt;int&gt;\n 1 Documentary Crew Member    19           3\n 2 Todd Packer                17.6        74\n 3 Michael                    15.3     11806\n 4 Dwight                     12.6      7393\n 5 Ryan                       11.0      1324\n 6 Jan                        10.9       919\n 7 Jim                        10.4      6666\n 8 Pam                        10.0      5264\n 9 Angela                      9.90     1677\n10 Oscar                       9.87     1464\n11 Stanley                     9.68      750\n12 Michel                      9.6         5\n13 Roy                         9.56      255\n14 Kevin                       9.44     1678\n15 Phyllis                     9.00     1054\n16 Man                         8.86       44\n\n\nThese results display that there is a fairly wide range of average sentence lengths. There also seems to be a correlation between speaking often and speaking a lot. In other words, characters that have a small number of lines also have a small number of words per line, and vice versa. There are, of course some exceptions to this rule, but it is particularly true for Michael Scott."
+  },
+  {
+    "objectID": "Project2.html#which-character-has-the-longest-um",
+    "href": "Project2.html#which-character-has-the-longest-um",
+    "title": "The Office!",
+    "section": "Which Character Has the Longest “Um”?",
+    "text": "Which Character Has the Longest “Um”?\n\nUmTracker &lt;- df |&gt;\n  group_by(Character) |&gt;\n  # Extract any instance of \"um\", \"umm\", \"ummmm\", etc. as a whole word, case-insensitive\n  mutate(umInstances = str_extract(Line, regex(\"\\\\bum+\\\\b\", ignore_case = TRUE))) |&gt;\n  # Keep only lines where an \"um\" instance was actually found\n  filter(!is.na(umInstances)) |&gt;\n  # Measure the length (number of characters) of the longest \"um\" in each line\n  mutate(umLength = nchar(umInstances)) |&gt;\n  \n  # Summarize by finding the longest \"um\" per character,\n  # and extract the full line where that longest \"um\" occurred\n  summarise(maxUmLength = max(umLength), maxUmLine = Line[which.max(umLength)], .groups = \"drop\") |&gt;\n  select(Character, maxUmLength, maxUmLine) |&gt;\n  arrange(desc(maxUmLength))\n\nUmTracker\n\n# A tibble: 73 × 3\n   Character maxUmLength maxUmLine                                              \n   &lt;chr&gt;           &lt;int&gt; &lt;chr&gt;                                                  \n 1 Pam                 5 \" Ummmm…   \"                                           \n 2 Darryl              4 \" [freezes] Ummm… [a moment later] Alright. Obviously …\n 3 David               4 \"   Ummm… okay, here’s the thing though.  The plan doe…\n 4 Donna               4 \" Ummm, no.\"                                           \n 5 Jim                 4 \" Ummm… no idea.\"                                      \n 6 Kelly               4 \" Ummm, like a week ago, we got really wasted and it j…\n 7 Michael             4 \" Ummm-hmmm…\"                                          \n 8 Oscar               4 \" Ummm… \"                                              \n 9 Andy                3 \" Umm, on the contrary. \"                              \n10 Angela              3 \" I have a very important announcement to make… about……\n# ℹ 63 more rows\n\n\nPam has the longest um! In Season 2, Episode 9, she has a line in which all she says is “Ummmm…”. It makes sense for Pam’s character to have the longest ‘um’ considering how reserved she is. This reservedness reveals itself in the previous plot in that she has a relatively small average sentence length relative to the number of lines she speaks. In fact, of all of the characters that have more than 2,000 lines, she is the only one with an average length less than 10. Being unsure of herself, it makes sense that Pam would be the only character to have this long of a hesitation written into the script."
+  },
+  {
+    "objectID": "Project2.html#what-words-precede-punctuation-marks",
+    "href": "Project2.html#what-words-precede-punctuation-marks",
+    "title": "The Office!",
+    "section": "What Words Precede Punctuation Marks?",
+    "text": "What Words Precede Punctuation Marks?\n\n# Identify words that appear immediately before exclamation marks\nWowWords &lt;- df |&gt;\n  mutate(instance = str_to_lower(str_extract(Line, \"\\\\b\\\\w+(?=!)\"))) |&gt;\n  filter(!is.na(instance)) |&gt;\n  group_by(instance) |&gt;\n  summarize(count = n(), .groups = \"drop\") |&gt;\n  arrange(desc(count))\n\n# Identify words that appear immediately before question marks\nQuestionWords &lt;- df |&gt;\n  mutate(instance = str_to_lower(str_extract(Line, \"\\\\b\\\\w+(?=\\\\?)\"))) |&gt;\n  filter(!is.na(instance)) |&gt;\n  group_by(instance) |&gt;\n  summarize(count = n(), .groups = \"drop\") |&gt;\n  arrange(desc(count))\n\nPlot 1:\n\n\n\n\n\n\n\n\n\nThis plot displays the 10 words that most often appear immediately before an exclamation mark. My favorite aspect of this plot is that for most of the words, you can imagine who said them and how. For example, just as the viewer may have guessed, Dwight said ‘Michael!’ 29 times over the course of the show, more than twice as much as any other character. Similarly, Michael ended his sentences with ‘no!’ and ‘god!’ much more often than any other character. It is also important to point out that these words differ notably from the list of 10 most used words in general.\nPlot 2:\n\n\n\n\n\n\n\n\n\nThis plot displays the 10 words that most often appear immediately before a question mark. Unlike the previous plot, it is difficult to imagine who typically said each word and how. However, it is still quite interesting, though not necessarily surprisingly, that there is one word, “what”, that precedes a question mark significantly more often than any other. It is also important to note that these words differ significantly from the list of 10 most used words in general.\nPlot 3:\n\n\n\n\n\n\n\n\n\nThis graph plots the relative frequencies of the 10 most common words used before exclamation marks and question marks. Some words, such as ‘you’ and ‘it’ precede each sign with similar frequencies. Most others, including ‘what’, ‘no’, ‘oh’, ‘hey’, and ‘yes’ differ significantly in their proportions. Among these, ‘what’ is the biggest outlier because it precedes nearly 1% of all question marks in the show! No other word appears before either of the signs with even half that frequency.\nData Source\nThe dataset used in this analysis is “The Office Lines” dataset on Kaggle. This dataset was currated by scraping text from The Office Quotes. It contains transcripts from all episodes of The Office (U.S.), including character dialogue, season, and episode numbers for every line."
+  },
+  {
+    "objectID": "Project4.html",
+    "href": "Project4.html",
+    "title": "Data Ethics",
+    "section": "",
+    "text": "There exists a growing problem in the field of data science which pertains to how data is sourced. Oftentimes, the most useful data is about us, but there are a whole host of problems that could arise when data can be linked to the person it describes. Medical data for example, can contain very personal details about a person’s life. In the wrong hands, these details that should be private could be used to profit off of the individual (potentially at that individual’s expense). The process of eliminating the possibility of data being reconnected with the person it describes, is called de-identification, and it may seem that merely removing names from a dataset is enough to guarantee this, but it turns out that there are several other details that could be used as identifiers. “The HIPAA Privacy Rule designates 18” of them (Nashville Biosciences), but even removing all 18 can still leave people vulnerable. This is because other quasi-identifiers can be used in conjunction with one another to piece together a person’s (or community’s) identity. The “concept of combing datasets to fill in the blanks is known as ‘mosaicking’” (Leetaru) and as an example, we can look at the famous New York City taxi database and the research performed by grad student Anthony Tockar. When the taxi dataset was released in 2013, it was improperly ‘anonymized’ by performing a mathematical operation (called MD5 hashing) on the license and medallion numbers of each cab driver. This process would have sufficiently scrambled all of the relevant identifiers if the size of the input space wasn’t so small. Unfortunately, it was, and people like Tockar (Leetaru) and Vijay Pandurangan (Goodin) were able to reverse engineer the original values because the researchers also failed to use techniques like keying or salting. Keying adds a secret to the hash to block unauthorized reproduction, while salting inserts random data so repeated values generate different hashes. By combining dataset insights with the vast numbers of pictures of celebrities in cabs published by the paparazzi everyday, the researchers were then able to match the pictures with the corresponding datatable entry. The cabs, their license plate, and medallion numbers are clearly depicted in many of these poparazzi pictures and other contextual data (like time and location) is typically available as well. By combining all of this data from the popparazzi pictures with the data from the cabs dataset, Tockar was easily able to identify the celebrities, their destinations, as even how much they paid and tipped for each ride. Examples like this reveal how difficult it can be to de-identify data, but luckily other solutions exist. Data managers are able to perform a variety of data manipulation techniques including clustering data into groups, providing row averages instead of individual values, and even producing ‘synthetic data’ that randomizes the data while maintaining the same distribution within each dimension and capturing inter-dimensional correlations. There are several approaches that allow researchers to draw meaningful conclusions while maintaining a strict de-identification status."
+  },
+  {
+    "objectID": "Project4.html#overview--new-york-city-taxi-dataset",
+    "href": "Project4.html#overview--new-york-city-taxi-dataset",
+    "title": "Data Ethics",
+    "section": "",
+    "text": "There exists a growing problem in the field of data science which pertains to how data is sourced. Oftentimes, the most useful data is about us, but there are a whole host of problems that could arise when data can be linked to the person it describes. Medical data for example, can contain very personal details about a person’s life. In the wrong hands, these details that should be private could be used to profit off of the individual (potentially at that individual’s expense). The process of eliminating the possibility of data being reconnected with the person it describes, is called de-identification, and it may seem that merely removing names from a dataset is enough to guarantee this, but it turns out that there are several other details that could be used as identifiers. “The HIPAA Privacy Rule designates 18” of them (Nashville Biosciences), but even removing all 18 can still leave people vulnerable. This is because other quasi-identifiers can be used in conjunction with one another to piece together a person’s (or community’s) identity. The “concept of combing datasets to fill in the blanks is known as ‘mosaicking’” (Leetaru) and as an example, we can look at the famous New York City taxi database and the research performed by grad student Anthony Tockar. When the taxi dataset was released in 2013, it was improperly ‘anonymized’ by performing a mathematical operation (called MD5 hashing) on the license and medallion numbers of each cab driver. This process would have sufficiently scrambled all of the relevant identifiers if the size of the input space wasn’t so small. Unfortunately, it was, and people like Tockar (Leetaru) and Vijay Pandurangan (Goodin) were able to reverse engineer the original values because the researchers also failed to use techniques like keying or salting. Keying adds a secret to the hash to block unauthorized reproduction, while salting inserts random data so repeated values generate different hashes. By combining dataset insights with the vast numbers of pictures of celebrities in cabs published by the paparazzi everyday, the researchers were then able to match the pictures with the corresponding datatable entry. The cabs, their license plate, and medallion numbers are clearly depicted in many of these poparazzi pictures and other contextual data (like time and location) is typically available as well. By combining all of this data from the popparazzi pictures with the data from the cabs dataset, Tockar was easily able to identify the celebrities, their destinations, as even how much they paid and tipped for each ride. Examples like this reveal how difficult it can be to de-identify data, but luckily other solutions exist. Data managers are able to perform a variety of data manipulation techniques including clustering data into groups, providing row averages instead of individual values, and even producing ‘synthetic data’ that randomizes the data while maintaining the same distribution within each dimension and capturing inter-dimensional correlations. There are several approaches that allow researchers to draw meaningful conclusions while maintaining a strict de-identification status."
+  },
+  {
+    "objectID": "Project4.html#more-ethical-considerations",
+    "href": "Project4.html#more-ethical-considerations",
+    "title": "Data Ethics",
+    "section": "More Ethical Considerations",
+    "text": "More Ethical Considerations\nThe New York City Taxi Dataset was made available to the public by New York City officials in 2013 and it contained detailed information about over 173 million taxi rides (Goodin). The observational units were cab rides and each one included information on trip routes, trip times, and ‘anonymized’ identifiers for drivers and their vehicles. The entire 20GB dataset was downloadable by anyone and despite the intentions of the researchers, the data was re-identifiable. Each of the table entries can be successfully de-anonymized because although the dataset managers used one-way MD5 hashes on the medallion and license numbers. The structure of those numbers was relatively restricted and therefore susceptible to cryptographic de-anonymization given some time (Goodin). This small input space made it trivial for someone like software developer Vijay Pandurangan to generate all possible hashes and match them against the released dataset. Consequently, anonymity was not guaranteed in any sense. The poor choice of MD5 hashing without keying or salting raises significant ethical concerns and rendered the data highly vulnerable to re-identification. Because the release of the dataset enabled the public to track specific drivers’ behaviors, work habits, and potentially even home locations, its release constitutes a serious breach of privacy. What’s more is that, being released in 2013, it is not old enough to garner exemptions for these kind of mistakes (Leetaru).\nWhile the original intent behind releasing the dataset may have been to support transparency within the government and promote research or innovation around public transportation, poor anonymization opened the door for other intentions. Not only were the cab drivers travel and earnings patterns exposed, but if you ever had a way of knowing the plate number/medallion and the time and location of specific person’s cab ride, then you also had access to information like their destination and how much they tipped (Leetaru)! Surely, this was not the intention of the city officials, but regardless, it is on them to eliminate any possibility of things like this from happening. This specific repurposing of the data extended far beyond the intended use and exposes how data, even when altered or partially scrubbed to the extent that it seems unidentifiable, can still be misused (Nashville Biosciences).\nWe must recognize that a move towards transparency within the government is positive, but in this case, the positive aspects of attempting to support transparency was outweighed by the negative potential of de-identification. The ethical concerns generated by the flawed anonymization method overshadow any possible benefits that the data might have offered. Instead of boosting transparency and promoting public transportation (such as by fostering efficiency gains) within communities, the release exposed drivers to potential scrutiny, surveillance, and exploitation, which undoubtedly could do more harm than good (Goodin)."
+  },
+  {
+    "objectID": "Project4.html#works-cited",
+    "href": "Project4.html#works-cited",
+    "title": "Data Ethics",
+    "section": "Works Cited",
+    "text": "Works Cited\n“De-Identification: Balancing Privacy and Utility in Healthcare Data.” Nashville Biosciences, 24 Jan. 2025, nashbio.com/blog/healthcare-data/de-identification-balancing-privacy-and-utility-in-healthcare-data/.\nGoodin, Dan. “Poorly Anonymized Logs Reveal NYC Cab Drivers’ Detailed Whereabouts.” Ars Technica, 23 June 2014, https://arstechnica.com/tech-policy/2014/06/poorly-anonymized-logs-reveal-nyc-cab-drivers-detailed-whereabouts/.\nLeetaru, Kalev. “The Big Data Era of Mosaicked Deidentification: Can We Anonymize Data Anymore?” Forbes, 24 Aug. 2016, https://www.forbes.com/sites/kalevleetaru/2016/08/24/the-big-data-era-of-mosaicked-deidentification-can-we-anonymize-data-anymore/."
+  },
+  {
+    "objectID": "TidyTuesday1.html",
+    "href": "TidyTuesday1.html",
+    "title": "Water Insecurity",
+    "section": "",
+    "text": "This is an analysis of Water Insecurity data sourced from TidyTuesday’s January 28th, 2025 data release. The plot depicts the water insecurity of US Counties in 2022. To download the data, visit this github repo. This dataset was compiled by Niha Pereira using the tidycensus package for R and this blog walkthrough. For more information on how to access census data from sources such as the U.S. Census Bureau, the Decennial Census, the American Community Survey (ACS), and the Household Pulse Survey, see the walkthrough.\n\n\n\n\n\n\n\n\n\nThis plot shows that the vast majority of counties have a low population (less than 2.5 million people) and a low percent lacking plumbing (less than 1%). There are also some outliers with high population (max of 10,000,000 people), and some with high percent lacking plumbing (max of 3.7%), but there are no counties with a high population and a high percent lacking plumbing. In other words, there a no major cities in the dataset with a large percentage of their inhabitants lacking plumbing, but there are several (5) cities who have more than 1% of their inhabitants lacking plumbing."
+  },
+  {
+    "objectID": "TidyTuesday2.html",
+    "href": "TidyTuesday2.html",
+    "title": "Cheese!",
+    "section": "",
+    "text": "This is an analysis of Cheese data sourced from TidyTuesday’s June 4th, 2024 data release. The plot compares the fat and calcium contents different types of cheese. To download the data, visit this github repo. This dataset was compiled using data from Cheese.com and its creation was inspired by the polite package.\n\n\n\n\n\n\n\n\n\nThis plot visualizes the relationship between fat and calcium content across various types of cheese. Each point represents a specific cheese, and a linear trend line suggests a weak negative correlation."
   },
   {
     "objectID": "Project5.html",
@@ -63,115 +231,17 @@
     "text": "References\nEdmonds, Ellen. 2020. “Survey Says: Men Are More Aggressive Behind the Wheel.” AAA Newsroom, December 3, 2020.\nPierson, Emma, Camelia Simoiu, Jan Overgoor, Sam Corbett-Davies, Daniel Jenson, Amy Shoemaker, Vignesh Ramachandran, et al. 2020. “A Large-Scale Analysis of Racial Disparities in Police Stops Across the United States.” Nature Human Behaviour, 1–10."
   },
   {
-    "objectID": "TidyTuesday2.html",
-    "href": "TidyTuesday2.html",
-    "title": "Cheese!",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Jack Susank",
     "section": "",
-    "text": "This is an analysis of Cheese data sourced from TidyTuesday’s June 4th, 2024 data release. The plot compares the fat and calcium contents different types of cheese. To download the data, visit this github repo. This dataset was compiled using data from Cheese.com and its creation was inspired by the polite package.\n\n\n\n\n\n\n\n\n\nThis plot visualizes the relationship between fat and calcium content across various types of cheese. Each point represents a specific cheese, and a linear trend line suggests a weak negative correlation."
+    "text": "Hi, I’m Jack Susank and welcome to my website! I’m a 3rd year computer science student at Pomona College with a passion for problem-solving, AI, and technology. Recently, I’ve been looking into Natural Language Processing (NLP), 3D Rendering/Printing, Data Visualization, and App Building. When I’m not working, studying, or learning about these things, I enjoy hiking, cooking, playing football, and spending time with my friends and family.\nThanks for visiting my site! Feel free to check out my projects and get in touch!"
   },
   {
-    "objectID": "TidyTuesday1.html",
-    "href": "TidyTuesday1.html",
-    "title": "Water Insecurity",
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "Resume as of 2/5/2024",
     "section": "",
-    "text": "This is an analysis of Water Insecurity data sourced from TidyTuesday’s January 28th, 2025 data release. The plot depicts the water insecurity of US Counties in 2022. To download the data, visit this github repo. This dataset was compiled by Niha Pereira using the tidycensus package for R and this blog walkthrough. For more information on how to access census data from sources such as the U.S. Census Bureau, the Decennial Census, the American Community Survey (ACS), and the Household Pulse Survey, see the walkthrough.\n\n\n\n\n\n\n\n\n\nThis plot shows that the vast majority of counties have a low population (less than 2.5 million people) and a low percent lacking plumbing (less than 1%). There are also some outliers with high population (max of 10,000,000 people), and some with high percent lacking plumbing (max of 3.7%), but there are no counties with a high population and a high percent lacking plumbing. In other words, there a no major cities in the dataset with a large percentage of their inhabitants lacking plumbing, but there are several (5) cities who have more than 1% of their inhabitants lacking plumbing."
-  },
-  {
-    "objectID": "Project4.html",
-    "href": "Project4.html",
-    "title": "Data Ethics",
-    "section": "",
-    "text": "There exists a growing problem in the field of data science which pertains to how data is sourced. Oftentimes, the most useful data is about us, but there are a whole host of problems that could arise when data can be linked to the person it describes. Medical data for example, can contain very personal details about a person’s life. In the wrong hands, these details that should be private could be used to profit off of the individual (potentially at that individual’s expense). The process of eliminating the possibility of data being reconnected with the person it describes, is called de-identification, and it may seem that merely removing names from a dataset is enough to guarantee this, but it turns out that there are several other details that could be used as identifiers. “The HIPAA Privacy Rule designates 18” of them (Nashville Biosciences), but even removing all 18 can still leave people vulnerable. This is because other quasi-identifiers can be used in conjunction with one another to piece together a person’s (or community’s) identity. The “concept of combing datasets to fill in the blanks is known as ‘mosaicking’” (Leetaru) and as an example, we can look at the famous New York City taxi database and the research performed by grad student Anthony Tockar. When the taxi dataset was released in 2013, it was improperly ‘anonymized’ by performing a mathematical operation (called MD5 hashing) on the license and medallion numbers of each cab driver. This process would have sufficiently scrambled all of the relevant identifiers if the size of the input space wasn’t so small. Unfortunately, it was, and people like Tockar (Leetaru) and Vijay Pandurangan (Goodin) were able to reverse engineer the original values because the researchers also failed to use techniques like keying or salting. Keying adds a secret to the hash to block unauthorized reproduction, while salting inserts random data so repeated values generate different hashes. By combining dataset insights with the vast numbers of pictures of celebrities in cabs published by the paparazzi everyday, the researchers were then able to match the pictures with the corresponding datatable entry. The cabs, their license plate, and medallion numbers are clearly depicted in many of these poparazzi pictures and other contextual data (like time and location) is typically available as well. By combining all of this data from the popparazzi pictures with the data from the cabs dataset, Tockar was easily able to identify the celebrities, their destinations, as even how much they paid and tipped for each ride. Examples like this reveal how difficult it can be to de-identify data, but luckily other solutions exist. Data managers are able to perform a variety of data manipulation techniques including clustering data into groups, providing row averages instead of individual values, and even producing ‘synthetic data’ that randomizes the data while maintaining the same distribution within each dimension and capturing inter-dimensional correlations. There are several approaches that allow researchers to draw meaningful conclusions while maintaining a strict de-identification status."
-  },
-  {
-    "objectID": "Project4.html#new-york-city-taxi-dataset--more-ethical-considerations",
-    "href": "Project4.html#new-york-city-taxi-dataset--more-ethical-considerations",
-    "title": "Data Ethics",
-    "section": "New York City Taxi Dataset- More Ethical Considerations",
-    "text": "New York City Taxi Dataset- More Ethical Considerations\nThe New York City Taxi Dataset was made available to the public by New York City officials in 2013 and it contained detailed information about over 173 million taxi rides (Goodin). The observational units were cab rides and each one included information on trip routes, trip times, and ‘anonymized’ identifiers for drivers and their vehicles. The entire 20GB dataset was downloadable by anyone and despite the intentions of the researchers, the data was re-identifiable. Each of the table entries can be successfully de-anonymized because although the dataset managers used one-way MD5 hashes on the medallion and license numbers. The structure of those numbers was relatively restricted and therefore susceptible to cryptographic de-anonymization given some time (Goodin). This small input space made it trivial for someone like software developer Vijay Pandurangan to generate all possible hashes and match them against the released dataset. Consequently, anonymity was not guaranteed in any sense. The poor choice of MD5 hashing without keying or salting raises significant ethical concerns and rendered the data highly vulnerable to re-identification. Because the release of the dataset enabled the public to track specific drivers’ behaviors, work habits, and potentially even home locations, its release constitutes a serious breach of privacy. What’s more is that, being released in 2013, it is not old enough to garner exemptions for these kind of mistakes (Leetaru).\nWhile the original intent behind releasing the dataset may have been to support transparency within the government and promote research or innovation around public transportation, poor anonymization opened the door for other intentions. Not only were the cab drivers travel and earnings patterns exposed, but if you ever had a way of knowing the plate number/medallion and the time and location of specific person’s cab ride, then you also had access to information like their destination and how much they tipped (Leetaru)! Surely, this was not the intention of the city officials, but regardless, it is on them to eliminate any possibility of things like this from happening. This specific repurposing of the data extended far beyond the intended use and exposes how data, even when altered or partially scrubbed to the extent that it seems unidentifiable, can still be misused (Nashville Biosciences).\nWe must recognize that a move towards transparency within the government is positive, but in this case, the positive aspects of attempting to support transparency was outweighed by the negative potential of de-identification. The ethical concerns generated by the flawed anonymization method overshadow any possible benefits that the data might have offered. Instead of boosting transparency and promoting public transportation (such as by fostering efficiency gains) within communities, the release exposed drivers to potential scrutiny, surveillance, and exploitation, which undoubtedly could do more harm than good (Goodin)."
-  },
-  {
-    "objectID": "Project4.html#works-cited",
-    "href": "Project4.html#works-cited",
-    "title": "Data Ethics",
-    "section": "Works Cited",
-    "text": "Works Cited\n“De-Identification: Balancing Privacy and Utility in Healthcare Data.” Nashville Biosciences, 24 Jan. 2025, nashbio.com/blog/healthcare-data/de-identification-balancing-privacy-and-utility-in-healthcare-data/.\nGoodin, Dan. “Poorly Anonymized Logs Reveal NYC Cab Drivers’ Detailed Whereabouts.” Ars Technica, 23 June 2014, https://arstechnica.com/tech-policy/2014/06/poorly-anonymized-logs-reveal-nyc-cab-drivers-detailed-whereabouts/.\nLeetaru, Kalev. “The Big Data Era of Mosaicked Deidentification: Can We Anonymize Data Anymore?” Forbes, 24 Aug. 2016, https://www.forbes.com/sites/kalevleetaru/2016/08/24/the-big-data-era-of-mosaicked-deidentification-can-we-anonymize-data-anymore/."
-  },
-  {
-    "objectID": "Project2.html",
-    "href": "Project2.html",
-    "title": "The Office!",
-    "section": "",
-    "text": "For this project, I decided to analyze the dialogue from one of my favorite TV shows (The Office) to uncover some linguistic patterns across its characters and episodes. I explored topics like the frequency of “downsizing,” character verbosity, hesitation patterns, and punctuation quirks.\nlibrary(stringr)\nlibrary(dplyr)\nlibrary(tidyr)\nlibrary(ggplot2)"
-  },
-  {
-    "objectID": "Project2.html#here-is-a-random-sample-of-our-data",
-    "href": "Project2.html#here-is-a-random-sample-of-our-data",
-    "title": "The Office!",
-    "section": "Here is a random sample of our data",
-    "text": "Here is a random sample of our data\n\ndf &lt;- read.csv(\"the-office_lines.csv\", fileEncoding = \"UTF-8\")\n\ndf |&gt;\n  sample_n(5) |&gt;\n  knitr::kable()\n\n\n\n\n\n\n\n\n\n\n\nX\nCharacter\nLine\nSeason\nEpisode_Number\n\n\n\n\n9163\nMichael\nYes, sir.\n2\n20\n\n\n51138\nJim\nAre you sure it’s stress? Because I did poison you.\n8\n15\n\n\n18648\nKelly\nWell, I hope you’re still committed because I’m pregnant.\n4\n2\n\n\n57212\nErin\nPete and I work well together — not that there’s anything special about Pete. It could be any guy… or girl– not that I’m into girls. Not that I’m into Pete. Ugh! What was the question?\n9\n12\n\n\n12056\nMichael\nGod, Dwight!\n3\n7"
-  },
-  {
-    "objectID": "Project2.html#how-often-does-downsizing-come-up",
-    "href": "Project2.html#how-often-does-downsizing-come-up",
-    "title": "The Office!",
-    "section": "How Often Does “Downsizing” Come Up?",
-    "text": "How Often Does “Downsizing” Come Up?\n\ndownsizing &lt;- df |&gt;\n  # Group the data by season and episode so we can count per episode\n  group_by(Season, Episode_Number) |&gt;\n  # Keep only lines that contain the word \"downsizing\" (case-insensitive, as a whole word)\n  filter(str_detect(Line, regex(\"\\\\bdownsizing\\\\b\", ignore_case = TRUE))) |&gt;\n  mutate(count_of_downsizing_lines = n()) |&gt;\n  mutate(SeasonEp = paste0(\"S:\", Season, \" E:\", Episode_Number)) |&gt;\n  select(SeasonEp, count_of_downsizing_lines) |&gt;\n  distinct()\ndownsizing\n\n# A tibble: 5 × 4\n# Groups:   Season, Episode_Number [5]\n  Season Episode_Number SeasonEp count_of_downsizing_lines\n   &lt;int&gt;          &lt;int&gt; &lt;chr&gt;                        &lt;int&gt;\n1      1              1 S:1 E:1                         10\n2      1              4 S:1 E:4                         14\n3      1              5 S:1 E:5                          1\n4      2              6 S:2 E:6                          1\n5      4              1 S:4 E:1                          1\n\n\nWhen I think of downsizing in The Office, I tend to think of the very first episode (10) so I am surprised to see that, in reality, the word appears in more lines (14) in the fourth episode."
-  },
-  {
-    "objectID": "Project2.html#who-talks-the-most-in-episode-1",
-    "href": "Project2.html#who-talks-the-most-in-episode-1",
-    "title": "The Office!",
-    "section": "Who Talks the Most in Episode 1?",
-    "text": "Who Talks the Most in Episode 1?\n\n# Identify the unique characters who speak in Season 1, Episode 1\nEp1Characters &lt;- df |&gt;\n  filter(Season == 1, Episode_Number == 1) |&gt;\n  distinct(Character)\n\n# Analyze average words per line for those characters across the entire dataset\nAvgWordsSpoken &lt;- df |&gt;\n  # Keep only rows where the character appeared in Episode 1\n  semi_join(Ep1Characters, by = \"Character\") |&gt;\n  group_by(Character) |&gt;\n  group_by(Character) |&gt;\n  mutate(Count = str_count(Line, \"\\\\b\\\\w+\\\\b\")) |&gt;\n  # Count the total number of lines spoken by each character\n  mutate(NumLines = n()) |&gt;\n  # Compute the average number of words per line per character\n  summarise(AvgCount = mean(Count), NumLines = NumLines) |&gt;\n  arrange(desc(AvgCount)) |&gt;\n  distinct()\n\nAvgWordsSpoken\n\n# A tibble: 16 × 3\n# Groups:   Character [16]\n   Character               AvgCount NumLines\n   &lt;chr&gt;                      &lt;dbl&gt;    &lt;int&gt;\n 1 Documentary Crew Member    19           3\n 2 Todd Packer                17.6        74\n 3 Michael                    15.3     11806\n 4 Dwight                     12.6      7393\n 5 Ryan                       11.0      1324\n 6 Jan                        10.9       919\n 7 Jim                        10.4      6666\n 8 Pam                        10.0      5264\n 9 Angela                      9.90     1677\n10 Oscar                       9.87     1464\n11 Stanley                     9.68      750\n12 Michel                      9.6         5\n13 Roy                         9.56      255\n14 Kevin                       9.44     1678\n15 Phyllis                     9.00     1054\n16 Man                         8.86       44\n\n\nThese results display that there is a fairly wide range of average sentence lengths. There also seems to be a correlation between speaking often and speaking a lot. In other words, characters that have a small number of lines also have a small number of words per line, and vice versa. There are, of course some exceptions to this rule, but it is particularly true for Michael Scott."
-  },
-  {
-    "objectID": "Project2.html#which-character-has-the-longest-um",
-    "href": "Project2.html#which-character-has-the-longest-um",
-    "title": "The Office!",
-    "section": "Which Character Has the Longest “Um”?",
-    "text": "Which Character Has the Longest “Um”?\n\nUmTracker &lt;- df |&gt;\n  group_by(Character) |&gt;\n  # Extract any instance of \"um\", \"umm\", \"ummmm\", etc. as a whole word, case-insensitive\n  mutate(umInstances = str_extract(Line, regex(\"\\\\bum+\\\\b\", ignore_case = TRUE))) |&gt;\n  # Keep only lines where an \"um\" instance was actually found\n  filter(!is.na(umInstances)) |&gt;\n  # Measure the length (number of characters) of the longest \"um\" in each line\n  mutate(umLength = nchar(umInstances)) |&gt;\n  \n  # Summarize by finding the longest \"um\" per character,\n  # and extract the full line where that longest \"um\" occurred\n  summarise(maxUmLength = max(umLength), maxUmLine = Line[which.max(umLength)], .groups = \"drop\") |&gt;\n  select(Character, maxUmLength, maxUmLine) |&gt;\n  arrange(desc(maxUmLength))\n\nUmTracker\n\n# A tibble: 73 × 3\n   Character maxUmLength maxUmLine                                              \n   &lt;chr&gt;           &lt;int&gt; &lt;chr&gt;                                                  \n 1 Pam                 5 \" Ummmm…   \"                                           \n 2 Darryl              4 \" [freezes] Ummm… [a moment later] Alright. Obviously …\n 3 David               4 \"   Ummm… okay, here’s the thing though.  The plan doe…\n 4 Donna               4 \" Ummm, no.\"                                           \n 5 Jim                 4 \" Ummm… no idea.\"                                      \n 6 Kelly               4 \" Ummm, like a week ago, we got really wasted and it j…\n 7 Michael             4 \" Ummm-hmmm…\"                                          \n 8 Oscar               4 \" Ummm… \"                                              \n 9 Andy                3 \" Umm, on the contrary. \"                              \n10 Angela              3 \" I have a very important announcement to make… about……\n# ℹ 63 more rows\n\n\nPam has the longest um! In Season 2, Episode 9, she has a line in which all she says is “Ummmm…”. It makes sense for Pam’s character to have the longest ‘um’ considering how reserved she is. This reservedness reveals itself in the previous plot in that she has a relatively small average sentence length relative to the number of lines she speaks. In fact, of all of the characters that have more than 2,000 lines, she is the only one with an average length less than 10. Being unsure of herself, it makes sense that Pam would be the only character to have this long of a hesitation written into the script."
-  },
-  {
-    "objectID": "Project2.html#what-words-precede-punctuation-marks",
-    "href": "Project2.html#what-words-precede-punctuation-marks",
-    "title": "The Office!",
-    "section": "What Words Precede Punctuation Marks?",
-    "text": "What Words Precede Punctuation Marks?\n\n# Identify words that appear immediately before exclamation marks\nWowWords &lt;- df |&gt;\n  mutate(instance = str_to_lower(str_extract(Line, \"\\\\b\\\\w+(?=!)\"))) |&gt;\n  filter(!is.na(instance)) |&gt;\n  group_by(instance) |&gt;\n  summarize(count = n(), .groups = \"drop\") |&gt;\n  arrange(desc(count))\n\n# Identify words that appear immediately before question marks\nQuestionWords &lt;- df |&gt;\n  mutate(instance = str_to_lower(str_extract(Line, \"\\\\b\\\\w+(?=\\\\?)\"))) |&gt;\n  filter(!is.na(instance)) |&gt;\n  group_by(instance) |&gt;\n  summarize(count = n(), .groups = \"drop\") |&gt;\n  arrange(desc(count))\n\nPlot 1:\n\n\n\n\n\n\n\n\n\nThis plot displays the 10 words that most often appear immediately before an exclamation mark. My favorite aspect of this plot is that for most of the words, you can imagine who said them and how. For example, just as the viewer may have guessed, Dwight said ‘Michael!’ 29 times over the course of the show, more than twice as much as any other character. Similarly, Michael ended his sentences with ‘no!’ and ‘god!’ much more often than any other character. It is also important to point out that these words differ notably from the list of 10 most used words in general.\nPlot 2:\n\n\n\n\n\n\n\n\n\nThis plot displays the 10 words that most often appear immediately before a question mark. Unlike the previous plot, it is difficult to imagine who typically said each word and how. However, it is still quite interesting, though not necessarily surprisingly, that there is one word, “what”, that precedes a question mark significantly more often than any other. It is also important to note that these words differ significantly from the list of 10 most used words in general.\nPlot 3:\n\n\n\n\n\n\n\n\n\nThis graph plots the relative frequencies of the 10 most common words used before exclamation marks and question marks. Some words, such as ‘you’ and ‘it’ precede each sign with similar frequencies. Most others, including ‘what’, ‘no’, ‘oh’, ‘hey’, and ‘yes’ differ significantly in their proportions. Among these, ‘what’ is the biggest outlier because it precedes nearly 1% of all question marks in the show! No other word appears before either of the signs with even half that frequency.\nData Source\nThe dataset used in this analysis is “The Office Lines” dataset on Kaggle. This dataset was currated by scraping text from The Office Quotes. It contains transcripts from all episodes of The Office (U.S.), including character dialogue, season, and episode numbers for every line."
-  },
-  {
-    "objectID": "Project3.html",
-    "href": "Project3.html",
-    "title": "Apple Interview Question!",
-    "section": "",
-    "text": "I once heard of a Apple interview question in which the candidate is given 100 coins (90 with heads facing up and 10 with tails facing up) and then asked to separate them into two piles of any size such that each pile has the same number of coins with the tails side facing up. Sounds simple enough, but there’s a catch… the candidate was to be blindfolded the entire time. This means they never saw the coins and have no idea which 10 coins are on tails or which 90 coins are on heads.\nThere is an algorithmic approach to this problem such that you can guarantee your answer will be true, but I was not able to come up with it. The best I could think to do is to randomly perform 100 coin flips and then separate my flipped coins into two piles of 50. I would then just have to hope that each pile has the same number of tails facing up."
-  },
-  {
-    "objectID": "Project3.html#inspiration",
-    "href": "Project3.html#inspiration",
-    "title": "Apple Interview Question!",
-    "section": "",
-    "text": "I once heard of a Apple interview question in which the candidate is given 100 coins (90 with heads facing up and 10 with tails facing up) and then asked to separate them into two piles of any size such that each pile has the same number of coins with the tails side facing up. Sounds simple enough, but there’s a catch… the candidate was to be blindfolded the entire time. This means they never saw the coins and have no idea which 10 coins are on tails or which 90 coins are on heads.\nThere is an algorithmic approach to this problem such that you can guarantee your answer will be true, but I was not able to come up with it. The best I could think to do is to randomly perform 100 coin flips and then separate my flipped coins into two piles of 50. I would then just have to hope that each pile has the same number of tails facing up."
-  },
-  {
-    "objectID": "Project3.html#motivating-question",
-    "href": "Project3.html#motivating-question",
-    "title": "Apple Interview Question!",
-    "section": "Motivating Question",
-    "text": "Motivating Question\nAlthough my answer is not exactly what the interviewers would have in mind, I have always been curious as to how often my answer would end up being correct merely by chance. Until now, I haven’t been able to figure out a way to answer this question without doing long mathematical calculations, and the free version of ChatGPT seems to give me a different answer each time I ask it, so I’m very excited to finally approximate the answer using this simulation."
-  },
-  {
-    "objectID": "Project3.html#results",
-    "href": "Project3.html#results",
-    "title": "Apple Interview Question!",
-    "section": "Results",
-    "text": "Results\n\n# Simulate flipping two piles of coins and checking if the number of tails match\nlibrary(purrr)\n\ncoin_flip &lt;- c(0, 1)\n\n# Function to simulate flipping two piles and checking if they match in tails\nflip_coins &lt;- function(pile_size) {\n  left_pile &lt;- sample(coin_flip, size = pile_size, replace = TRUE)\n  right_pile &lt;- sample(coin_flip, size = pile_size, replace = TRUE)\n  \n  tails_match &lt;- ifelse(sum(left_pile) == sum(right_pile), 1, 0)\n  return (tails_match)\n}\n\n# Run the simulation many times and return the estimated probability\ncoin_simulation &lt;- function(pile_size, num_iterations) {\n  results &lt;- map_dbl(c(1:num_iterations), ~flip_coins(pile_size = pile_size)) \n  probability_same_tails &lt;- mean(results)\n  return(probability_same_tails)\n}\n\ncoin_simulation(50, 100000)\n\n[1] 0.07912\n\n\nAccording to the simulation, I could expect to get the right answer about 8% of the time!\nWhile the results were lower than I had expected, the simulation provides a clear and consistent estimate. Out of curiosity, I have also simulated how the results would change with varying pile sizes. A plot with the results of that simulation can be seen below.\n\n\n\n\n\nProbability of matching tails as a function of pile size"
-  },
-  {
-    "objectID": "Project3.html#insights",
-    "href": "Project3.html#insights",
-    "title": "Apple Interview Question!",
-    "section": "Insights",
-    "text": "Insights\nThis plot depicts the relationship between the number of coins in each pile, and the probability that the flips will result in the same number of tails. As you can see, if you wanted to maximize your odds of success, the smartest thing to do would be to minimize the pile size. It should be noted, however, that although the probability that you get the exact same number of heads in each pile decreases as the pile size increases, the probability that you get a similar number would increase. Essentially, what is happening here is the number of total possible outcomes is increasing with the number of coins in each pile so the outcomes are more granular, and therefore, more likely to be unequal. In the interview question I heard about, the pile size was 50, and we can see in the graph that this corresponds to a probability score of about 0.8 (the same as before).\nI think these results have applications outside of a random Apple interview question like this one because they speak to the best way to maximize repeated success in a probabilistic setting. These results speak to the fact that reducing the number of potential outcomes reduces the probability of getting different outcomes. In this case, you can’t reduce the number of outcomes by changing the number of sides on a coin, but you can reduce the number of outcomes by reducing the number of times you perform the experiment. This is also true in general. Imagine if you were to perform the same simulation except with 100 six-sided-dice instead of 100 two-sided coins. The results would follow the same pattern."
+    "text": "Download\n\n\n\nResume"
   }
 ]

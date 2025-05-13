@@ -1,7 +1,7 @@
 ---
 title: "Resume as of 2/5/2024"
 ---
-[Resume Download](2_5_25 Resume (1).pdf)
+[Download](2_5_25 Resume (1).pdf)
 
 
 ![Resume](media/ResumeScreenshot.png)

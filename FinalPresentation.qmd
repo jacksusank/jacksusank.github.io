@@ -1,0 +1,130 @@
+---
+title: "A Random Chance Approach to Apple's Interview Question"
+author: "Jack Susank"
+subtitle: "May 13 2025"
+format:
+  revealjs:
+    scrollable: true
+    slide-number: true
+    show-slide-number: all
+    embed-resources: true
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+  
+## Can you solve Apple's Coin Interview Question while blindfolded?
+You have:
+
+* 100 coins (90 heads, 10 tails)
+* You're blindfolded
+* You cannot feel which side of the coin is facing up
+
+Goal: Split the coins into two piles with the same number of tails facing up.
+
+Can you do it?
+
+
+## Best Solution
+Step 1: Select 10 coins at random and move them to the side
+
+
+Step 2: Flip all 10 of those coins over so that if heads was facing up before, tails is facing up now.
+
+
+Step 3: Take off your blindfold because you're done! The number of tails in the pile of 10 coins will always be the same as the number of tails in the pile of 90 coins.
+
+
+## My Solution
+
+Do 100 coin flips and then separate the coins into two piles of 50.
+
+Sometimes, the number of tails in the left pile will match the number of tails in the right pile, and you will get the job!
+
+## Problems
+
+* I know my approach doesn't work every time
+* I don't know how often it doesn't work
+
+Motivating Question: What percent of the time will my approach work by chance?
+
+
+## Simulation Function
+
+```{r}
+# Simulate flipping two piles of coins and checking if 
+# the number of tails match
+library(purrr)
+
+# Outcome space of a coin flip
+# 0 -> heads
+# 1 -> tails
+coin_flip <- c(0, 1)
+
+# Function to simulate flipping two piles and checking
+# if they match in tails
+flip_coins <- function(pile_size) {
+  left_pile <- sample(coin_flip, size = pile_size, replace = TRUE)
+  right_pile <- sample(coin_flip, size = pile_size, replace = TRUE)
+  
+  
+  # Return 1 if match, 0 otherwise
+  tails_match <- ifelse(sum(left_pile) == sum(right_pile), 1, 0)
+  return (tails_match)
+}
+```
+
+
+## Run the simulation many times and return the resulting estimated probability
+```{r}
+coin_simulation <- function(pile_size, num_iterations) {
+  results <- map_dbl(c(1:num_iterations), ~flip_coins(pile_size = pile_size)) 
+  probability_same_tails <- mean(results)
+  return(probability_same_tails)
+}
+
+coin_simulation(50, 100000)
+```
+
+## How would the results change with varying pile sizes?
+
+```{r pile-size-plot, fig.cap="Probability of matching tails as a function of pile size", fig.alt="A line plot showing that smaller pile sizes have a higher probability of matching tail counts between two piles.", echo=FALSE, message=FALSE, warning=FALSE}
+library(ggplot2)
+
+pile_size <- (1:100)
+
+results_100 <- map_dbl(pile_size, coin_simulation, num_iterations = 5000)
+results_df <- data.frame(pile_size = pile_size, probability = results_100)
+
+
+ggplot(results_df, aes(x = pile_size, y = probability)) +
+  geom_line(color = "blue") +
+  geom_point(color = "red") +
+  labs(
+    title = "Probability of Equal Tails in Two Piles",
+    x = "Pile Size",
+    y = "Probability"
+  ) +
+  theme_minimal()
+```
+
+
+
+## Conclusions
+
+* I'm not getting the job with this approach
+* Reducing the size of the outcome space also reduces the probability of getting different outcomes over multiple trials
+* Low number of trials essentially lowers the number of bins
+
+
+![Normal Distribution](media/Small_Normal_Bins.png)
+
+## Alternative Solution
+
+Step 1: Throw 98 of the coins out the window.
+
+Step 2: Flip the last two coins and hope you get the same result.
+
+
+# Thank you
